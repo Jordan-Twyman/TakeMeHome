@@ -42,6 +42,13 @@ namespace TakeMeHome
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TakeMeHome v1"));
+
+                app.UseCors(options =>
+                {
+                    options.AllowAnyOrigin();
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+                });
             }
 
             app.UseHttpsRedirection();
