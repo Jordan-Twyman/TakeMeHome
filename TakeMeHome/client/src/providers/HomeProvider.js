@@ -18,6 +18,8 @@ export const HomeProvider =(props) =>{
 // };
 
 
+
+
   const login = (userObject) => {
     return fetch(`${apiUrl}/api/home/getbyemail?email=${userObject.email}`)
     .then((r) => r.json())
@@ -33,7 +35,6 @@ export const HomeProvider =(props) =>{
       });
   };
 
-
   const logout = () => {
         sessionStorage.clear()
         setIsLoggedIn(false);
@@ -41,7 +42,7 @@ export const HomeProvider =(props) =>{
 
   const register = (userObject, password) => {
    
-      return  fetch(`${apiUrl}/api/userprofile`, {
+      return  fetch(`${apiUrl}/api/home`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,10 +57,6 @@ export const HomeProvider =(props) =>{
  
 
   };
-
-
-
-
 
   return (
     <HomeContext.Provider value={{ isLoggedIn, login, logout, register,

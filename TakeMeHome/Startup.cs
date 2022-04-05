@@ -28,6 +28,8 @@ namespace TakeMeHome
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IHomeRepository, HomeRepository>();
+            services.AddTransient<IAreaRepository, AreaRepository>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

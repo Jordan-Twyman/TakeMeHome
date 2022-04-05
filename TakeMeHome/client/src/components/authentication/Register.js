@@ -9,6 +9,7 @@ export default function Register() {
 
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
+  const [constructedDate, setConstructedDate] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
@@ -18,7 +19,7 @@ export default function Register() {
       if (password && password !== confirmPassword) {
         alert("Passwords don't match. Do better.");
       } else {
-        const homeProfile = { firstName, lastName, email };
+        const homeProfile = { firstName, lastName, email, constructedDate };
         register(homeProfile, password)
           .then(() => navigate("/"));
       }
@@ -47,6 +48,10 @@ export default function Register() {
         <FormGroup>
           <Label for="confirmPassword">Confirm Password</Label>
           <Input id="confirmPassword" type="password" onChange={e => setConfirmPassword(e.target.value)} />
+        </FormGroup>
+        <FormGroup>
+          <Label for="constructedDate">What year was your home constructed?</Label>
+          <Input id="constructedDate" type="date" onChange={e => setConstructedDate(e.target.value)} />
         </FormGroup>
         <FormGroup>
           <Button>Register</Button>
