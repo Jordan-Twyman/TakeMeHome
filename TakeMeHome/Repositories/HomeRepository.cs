@@ -22,7 +22,7 @@ namespace TakeMeHome.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT FirstName, LastName, Email, ConstructedDate, HomeType
+                        SELECT Id, FirstName, LastName, Email, ConstructedDate
                           FROM Home
                          WHERE Email = @email";
 
@@ -49,15 +49,14 @@ namespace TakeMeHome.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Home (FirstName, LastName, Email, ConstructedDate, HomeType)
+                    cmd.CommandText = @"INSERT INTO Home (FirstName, LastName, Email, ConstructedDate)
                                         OUTPUT INSERTED.ID
                                         VALUES (@FirstName, @LastName, @Email, 
-                                                @ConstructedDate, @HomeType)";
+                                                @ConstructedDate)";
                     DbUtils.AddParameter(cmd, "@FirstName", home.FirstName);
                     DbUtils.AddParameter(cmd, "@LastName", home.LastName);
                     DbUtils.AddParameter(cmd, "@Email", home.Email);
                     DbUtils.AddParameter(cmd, "@ConstructedDate", home.ConstructedDate);
-                    DbUtils.AddParameter(cmd, "@HomeType", home.HomeType);
 
                     home.Id = (int)cmd.ExecuteScalar();
                 }
@@ -73,9 +72,7 @@ namespace TakeMeHome.Repositories
                 FirstName = DbUtils.GetString(reader, "FirstName"),
                 LastName = DbUtils.GetString(reader, "LastName"),
                 Email = DbUtils.GetString(reader, "Email"),
-                ConstructedDate = DbUtils.GetDateTime(reader, "ConstructedDate"),
-                HomeType = DbUtils.GetString(reader, "HomeType"),
-              
+                ConstructedDate = DbUtils.GetDateTime(reader, "ConstructedDate"),              
             };
         }
 

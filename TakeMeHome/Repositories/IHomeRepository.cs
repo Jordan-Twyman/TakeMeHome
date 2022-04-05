@@ -1,6 +1,10 @@
-﻿namespace TakeMeHome.Repositories
+﻿using TakeMeHome.Models;
+
+namespace TakeMeHome.Repositories
 {
-    internal interface IHomeRepository
+    public interface IHomeRepository
     {
+        void Add(Home home);
+        Home GetByEmail(string email);
     }
 }
