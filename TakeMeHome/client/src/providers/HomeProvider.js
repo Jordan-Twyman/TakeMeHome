@@ -7,15 +7,13 @@ export const HomeProvider =(props) =>{
 
   const apiUrl = "https://localhost:44372";
   const [home, setHome] = useState([]);
-  const currentUser = sessionStorage.getItem("user");
+  const currentUser = JSON.parse(sessionStorage.getItem("user"));
   const [isLoggedIn, setIsLoggedIn] = useState(currentUser != null);
 
 
   
 
-//   const getHome = (id) => {
-//     return fetch(`${apiUrl}/api/home/${id}`).then((res) => res.json());
-// };
+
 
 
 
@@ -25,7 +23,7 @@ export const HomeProvider =(props) =>{
     .then((r) => r.json())
       .then((userProfile) => {
         if(userProfile.id){
-          sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
+          sessionStorage.setItem("user", JSON.stringify(userProfile));
           setIsLoggedIn(true);
           return userProfile
         }
@@ -51,7 +49,7 @@ export const HomeProvider =(props) =>{
     })
     .then((response) => response.json())
       .then((savedUserProfile) => {
-        sessionStorage.setItem("userProfile", JSON.stringify(savedUserProfile))
+        sessionStorage.setItem("user", JSON.stringify(savedUserProfile))
         setIsLoggedIn(true);
       });
  

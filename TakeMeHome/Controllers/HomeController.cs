@@ -31,6 +31,17 @@ namespace TakeMeHome.Controllers
             return "value";
         }
 
+        [HttpGet("/GetMyHome/{id}")]
+        public IActionResult GetMyHome(int id)
+        {
+            var home = _homeRepository.GetHomeWithInventoryandUpkeep(id);
+            if (home == null)
+            {
+                return NotFound();
+            }
+            return Ok(home);
+        }
+
         [HttpGet("GetByEmail")]
         public IActionResult GetByEmail(string email)
         {

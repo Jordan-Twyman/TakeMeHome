@@ -28,6 +28,7 @@ namespace TakeMeHome
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IHomeRepository, HomeRepository>();
+            services.AddTransient<IHomeInventoryRepository, HomeInventoryRepository>();
             services.AddTransient<IAreaRepository, AreaRepository>();
 
 

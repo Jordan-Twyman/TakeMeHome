@@ -37,8 +37,8 @@
   }
 }
 
-.collapsible {
-  background-color: #86a4df;
+.collapsible,.collapsible2 {
+  background-color: #708090;
   color: white;
   cursor: pointer;
   padding: 18px;
@@ -48,18 +48,18 @@
   outline: none;
   font-size: 15px;
 }
- .collapsible:hover {
-  background-color: #5e85d4;
+ .collapsible:hover,.collapsible2:hover {
+  background-color: #536878;
 }
 
-.content {
+.content, .content2 {
   padding: 0 18px;
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
 }
 
-.collapsible:after {
+.collapsible:after,.collapsible2:after {
   content: '\02795'; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
   color: white;

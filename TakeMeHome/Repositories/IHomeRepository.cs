@@ -6,5 +6,6 @@ namespace TakeMeHome.Repositories
     {
         void Add(Home home);
         Home GetByEmail(string email);
+        Home GetHomeWithInventoryandUpkeep(int id);
     }
 }

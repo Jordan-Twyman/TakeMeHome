@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { AreaProvider } from "../providers/AreaProvider";
 import { HomeContext, HomeProvider } from "../providers/HomeProvider";
+import { InventoryProvider } from "../providers/InventoryProvider";
 import AreaList from "./area/AreaList";
+import MyAreaList from "./area/MyAreaList";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";
 
@@ -23,10 +25,12 @@ export default function ApplicationViews() {
      return(
         <HomeProvider>
         <AreaProvider>
+        <InventoryProvider>
         <Routes>
             {/* <Route path="/" element={<Hello />} /> */}
-            <Route path="/" element={ <AreaList />} />
+            <Route path="/" element={ <MyAreaList /> } />
         </Routes>
+        </InventoryProvider>
         </AreaProvider>            
         </HomeProvider>
   
