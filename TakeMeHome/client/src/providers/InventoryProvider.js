@@ -16,10 +16,18 @@ const getInventoryByHomeId = (homeId) => {
   };
 
 
-
+  const addInventory = (inventory) => {
+    return fetch(`${apiUrl}/api/Inventory`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inventory),
+    })
+  };
 
   return (
-    <InventoryContext.Provider value={{ getInventoryByHomeId, inventory, setInventory  }}>
+    <InventoryContext.Provider value={{ getInventoryByHomeId, inventory, setInventory, addInventory  }}>
        {props.children}
     </InventoryContext.Provider>
   );

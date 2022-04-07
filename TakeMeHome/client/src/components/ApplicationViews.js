@@ -7,6 +7,7 @@ import AreaList from "./area/AreaList";
 import MyAreaList from "./area/MyAreaList";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";
+import { InventoryForm } from "./inventory/InventoryForm";
 
 
 export default function ApplicationViews() {
@@ -28,7 +29,9 @@ export default function ApplicationViews() {
         <InventoryProvider>
         <Routes>
             {/* <Route path="/" element={<Hello />} /> */}
-            <Route path="/" element={ <MyAreaList /> } />
+            <Route path="/" element={ <AreaList /> } />
+            <Route path="/inventory/create/:id/*" element={ <InventoryForm /> } />
+
         </Routes>
         </InventoryProvider>
         </AreaProvider>            

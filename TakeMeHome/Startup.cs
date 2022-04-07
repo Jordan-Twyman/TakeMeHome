@@ -30,6 +30,8 @@ namespace TakeMeHome
             services.AddTransient<IHomeRepository, HomeRepository>();
             services.AddTransient<IHomeInventoryRepository, HomeInventoryRepository>();
             services.AddTransient<IAreaRepository, AreaRepository>();
+            services.AddTransient<IHomeUpkeepRepository, HomeUpkeepRepository>();
+
 
 
             services.AddControllers();

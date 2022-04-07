@@ -72,7 +72,7 @@ namespace TakeMeHome.Repositories
                                         FROM Area a
                                         Left Join Inventory i On i.AreaId = a.Id
                                         Left Join HomeInventory hi on hi.InventoryId = i.Id
-                                        WHERE hi.HomeId = @homeId;";
+                                        Where hi.HomeId = @homeId;";
 
                     DbUtils.AddParameter(cmd, "@homeId", homeId);
 
@@ -96,7 +96,7 @@ namespace TakeMeHome.Repositories
                             areas.Add(existingArea);
                         }
                         if (DbUtils.IsNotDbNull(reader, "InventoryId"))
-                        {
+                        { 
                             existingArea.InventoryItems.Add(new Inventory()
                             {
                                 Id = DbUtils.GetInt(reader, "InventoryId"),

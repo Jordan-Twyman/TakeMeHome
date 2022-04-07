@@ -5,7 +5,7 @@ import MyArea from "./MyArea";
 const MyAreaList = () => {
   const { area, getMyAreas } = useContext(AreaContext);
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
-    const currentUserId = currentUser.id
+  const currentUserId = currentUser.id
 
   useEffect(() => {
     getMyAreas(currentUserId)
