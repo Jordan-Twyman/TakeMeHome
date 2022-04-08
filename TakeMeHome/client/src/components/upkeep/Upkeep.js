@@ -19,7 +19,6 @@ const Upkeep = ({ upkeep }) => {
         <div>{upkeep.upkeep.inventory.name}</div>
         <div><Link to={`/upkeep/details/${upkeep.id}`}>{upkeep.upkeep.title}</Link></div>
         <div>{formatted}</div>
-        <button>Completed</button>
     </CardBody>
   </Card>
 

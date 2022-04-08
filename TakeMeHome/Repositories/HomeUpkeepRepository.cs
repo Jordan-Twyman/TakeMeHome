@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using TakeMeHome.Models;
 using TakeMeHome.Utils;
@@ -137,6 +139,54 @@ namespace TakeMeHome.Repositories
                 }
             }
 
+        }
+        public void CompleteUpkeep(HomeUpkeep homeupkeep, int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT * FROM Upkeep u
+                        Left JOiN HomeUpkeep hu on hu.UpkeepId = u.id
+                        Where hu.Id = @Id;
+                       ";
+
+                    cmd.Parameters.AddWithValue("@Id", homeupkeep.Id);
+                    var reader = cmd.ExecuteReader();
+
+                    Upkeep upkeep = null;
+                    if (reader.Read())
+                    {
+                        upkeep = new Upkeep()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            NumberOfMonths = DbUtils.GetInt(reader,"NumberOfMonths")
+                        };
+
+                    }
+                    reader.Close();
+                    string upKeepInsertStatement = "";
+                   
+                        DateTime today = DateTime.Now;
+                        DateTime scheduleDate = today.AddMonths(upkeep.NumberOfMonths);
+                        upKeepInsertStatement += $@"
+                            UPDATE HomeUpkeep
+                            SET
+                               [ScheduleDate] = '{scheduleDate}',
+                               [Count] = @Count,
+                               [Cost] = @Cost
+                               WHERE Id = @HomeUpkeepId";
+                    
+                    cmd.CommandText = upKeepInsertStatement;
+
+                    cmd.Parameters.AddWithValue("@HomeUpkeepId", id);
+                    cmd.Parameters.AddWithValue("@Cost", homeupkeep.Cost == null ? 0 : homeupkeep.Cost);
+                    cmd.Parameters.AddWithValue("@Count", homeupkeep.Count + 1);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

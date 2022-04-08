@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using TakeMeHome.Models;
 using TakeMeHome.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -52,8 +53,15 @@ namespace TakeMeHome.Controllers
 
         // PUT api/<UpkeepController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, HomeUpkeep upkeep)
         {
+            if (id != upkeep.Id)
+            {
+                return BadRequest();
+            }
+
+            _upkeepRepository.CompleteUpkeep(upkeep, id);
+            return NoContent();
         }
 
         // DELETE api/<UpkeepController>/5

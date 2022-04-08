@@ -1,15 +1,16 @@
+import { Button } from "bootstrap";
 import moment from "moment";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { InventoryContext } from "../../providers/InventoryProvider";
 
 export const InventoryForm = () => {
-const {addInventory} = useContext(InventoryContext);
+const {addInventory, updateInventory, getInventoryById} = useContext(InventoryContext);
 const currentUser = JSON.parse(sessionStorage.getItem("user"));
 const { id, name } = useParams()
 
-
+const [isLoading, setIsLoading] = useState(true);
 
     const [inventory, setInventory] = useState({
         
@@ -19,6 +20,17 @@ const { id, name } = useParams()
         modelNumber:"" ,
         purchaseDate:""       
     });
+
+    useEffect(()=> {
+        if(id){
+            getInventoryById(id)
+            .then(tag => {
+              setInventory(tag)
+              setIsLoading(false)
+            })
+          } else {
+            setIsLoading (false)
+          }}, [])
 
     const navigate = useNavigate();
 
@@ -30,15 +42,28 @@ const { id, name } = useParams()
 
     const handleClickSaveItem = (e) => {
         e.preventDefault();
-        addInventory({
-        
+        setIsLoading(true);
+        if (id){
+          //PUT - update
+          updateInventory({
+            id: inventory.id,
             homeId:currentUser.id,
             inventoryId:id,
             brand:inventory.brand,
             modelNumber:inventory.modelNumber ,
-            purchaseDate: inventory.purchaseDate === "" ? currentUser.constructedDate : inventory.purchaseDate       
-        }).then(() => navigate('/'));          
-    }
+            purchaseDate: inventory.purchaseDate === "" ? currentUser.constructedDate : inventory.purchaseDate
+          })
+        }
+       else{addInventory({
+        
+        homeId:currentUser.id,
+        inventoryId:id,
+        brand:inventory.brand,
+        modelNumber:inventory.modelNumber ,
+        purchaseDate: inventory.purchaseDate === "" ? currentUser.constructedDate : inventory.purchaseDate       
+    }).then(() => navigate('/')); }          
+    
+}
 
     return (
         <form className="inventoryForm">
@@ -61,10 +86,13 @@ const { id, name } = useParams()
                     <input value={inventory.purchaseDate} type="date" id="purchaseDate" onChange={handleControlledInputChange}   className="form-control"/>
                 </div>
             </fieldset>
-            <button className="btn btn-primary"
-        onClick={handleClickSaveItem}>
-        Save Post
-      </button>
+            <button primary 
+                              disabled={isLoading} 
+                              type="submit" className="btn btn-primary" onClick={event => {
+                                event.preventDefault()
+                                 handleClickSaveItem()}}>
+                              {id ? <>Save Item</> : <>Add Item</>}
+                        </button>
         </form>
     )
 }

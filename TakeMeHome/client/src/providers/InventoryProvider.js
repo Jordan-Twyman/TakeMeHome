@@ -15,7 +15,9 @@ const getInventoryByHomeId = (homeId) => {
     .then((r) => r.json())
   };
 
-
+  const getInventoryById = (id) => {
+    return fetch(`${apiUrl}/api/Inventory/${id}`).then((res) => res.json());
+};
   const addInventory = (inventory) => {
     return fetch(`${apiUrl}/api/Inventory`, {
       method: "POST",
@@ -26,8 +28,19 @@ const getInventoryByHomeId = (homeId) => {
     })
   };
 
+  const updateInventory = inventory => {
+    return fetch(`${apiUrl}/api/Inventory/${inventory.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(inventory)
+    })
+      .then(getInventoryByHomeId)
+  }
+
   return (
-    <InventoryContext.Provider value={{ getInventoryByHomeId, inventory, setInventory, addInventory  }}>
+    <InventoryContext.Provider value={{ getInventoryByHomeId, inventory, setInventory, addInventory, updateInventory, getInventoryById  }}>
        {props.children}
     </InventoryContext.Provider>
   );

@@ -66,15 +66,81 @@ namespace TakeMeHome.Repositories
                 }
         }
         }
-        /* INSERT INTO HomeInventory(HomeId, InventoryId, Brand, ModelNumber, PurchaseDate)
-                         OUTPUT INSERTED.ID
-                         VALUES (@HomeId, @InventoryId, @Brand, @ModelNumber, @PurchaseDate)*/
-       /* cmd.Parameters.AddWithValue("@HomeId", inventory.HomeId);
-                    cmd.Parameters.AddWithValue("@Brand", DbUtils.ValueOrDBNull(inventory.Brand));
-                    cmd.Parameters.AddWithValue("@ModelNumber", DbUtils.ValueOrDBNull(inventory.ModelNumber));
-                    cmd.Parameters.AddWithValue("@PurchaseDate", DbUtils.ValueOrDBNull(inventory.PurchaseDate));
+        public void UpdateInventory(HomeInventory inventory, int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
 
-                    inventory.Id = (int) cmd.ExecuteScalar();*/
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE HomeInventory
+                            SET 
+                               [Brand] = @brand, 
+                               [ModelNumber] = @modelNumber,
+                               [PurchaseDate] = @purchaseDate, 
+                               [HomeId] = @homeId, 
+                               [InventoryId] = @inventoryId, 
+
+                               WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@brand", inventory.Brand);
+                    cmd.Parameters.AddWithValue("@modeNumber", inventory.ModelNumber);
+                    cmd.Parameters.AddWithValue("@purchaseDate", inventory.PurchaseDate);
+                    cmd.Parameters.AddWithValue("@homeId", inventory.HomeId);
+                    cmd.Parameters.AddWithValue("@inventoryId", inventory.InventoryId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public HomeInventory GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT hi.Id, hi.Homeid, hi.InventoryId, hi.Brand, hi.ModelNumber, hi.PurchaseDate,
+                                               i.Name as InventoryName, i.Id as PrimaryInventoryId
+                                        FROM HomeInventory hi
+                                        Left Join Inventory i On i.Id = hi.InventoryId
+                           WHERE hi.Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    HomeInventory inventory = null;
+                    if (reader.Read())
+                    {
+                        inventory = new HomeInventory()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            HomeId = DbUtils.GetInt(reader, "HomeId"),
+                            Brand = DbUtils.GetString(reader, "Brand"),
+                            ModelNumber = DbUtils.GetString(reader, "ModelNumber"),
+                            PurchaseDate = DbUtils.GetDateTime(reader, "PurchaseDate"),
+                            InventoryId = DbUtils.GetInt(reader,"InventoryId"),
+                            Inventory = new Inventory()
+                            {
+                                Id = DbUtils.GetInt(reader, "PrimaryInventoryId"),
+                                Name = DbUtils.GetString(reader, "InventoryName")
+                            },
+                            
+                        };
+
+                    }
+                    reader.Close();
+
+                    return inventory;
+                }
+            }
+
+        }
         private HomeInventory NewInventoryFromReader(SqlDataReader reader)
         {
             return new HomeInventory()

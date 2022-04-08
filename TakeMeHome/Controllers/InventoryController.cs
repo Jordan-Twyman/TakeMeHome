@@ -25,12 +25,17 @@ namespace TakeMeHome.Controllers
 
         // GET api/<InventoryController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var inventory = _inventoryRepository.GetById(id);
+            if (inventory == null)
+            {
+                return NotFound();
+            }
+            return Ok(inventory);
         }
 
-    
+
 
         // POST api/<InventoryController>
         [HttpPost]
@@ -42,8 +47,15 @@ namespace TakeMeHome.Controllers
 
         // PUT api/<InventoryController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, HomeInventory inventory)
         {
+            if (id != inventory.Id)
+            {
+                return BadRequest();
+            }
+
+            _inventoryRepository.UpdateInventory(inventory, id);
+            return NoContent();
         }
 
         // DELETE api/<InventoryController>/5

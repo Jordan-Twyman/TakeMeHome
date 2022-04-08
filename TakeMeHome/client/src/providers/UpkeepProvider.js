@@ -19,10 +19,20 @@ const getMyUpkeeps = (homeId) => {
     return fetch(`${apiUrl}/api/Upkeep/${id}`).then((res) => res.json());
 };
 
+const completeUpkeep = upkeep => {
+    return fetch(`${apiUrl}/api/Upkeep/${upkeep.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(upkeep)
+    })
+  }
+
  
 
   return (
-    <UpkeepContext.Provider value={{ getMyUpkeeps, upkeep, setUpkeep, getUpkeep  }}>
+    <UpkeepContext.Provider value={{ getMyUpkeeps, upkeep, setUpkeep, getUpkeep, completeUpkeep  }}>
        {props.children}
     </UpkeepContext.Provider>
   );

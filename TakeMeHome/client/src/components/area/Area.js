@@ -8,8 +8,6 @@ import "../../App.css";
 
 const Area = ({ area }) => {
 
-    const currentUser = JSON.parse(sessionStorage.getItem("user"));
-    const currentUserId = currentUser.id
     const [isOpen, setIsOpen] = useState(false)
 
 
