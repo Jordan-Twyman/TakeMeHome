@@ -32,9 +32,14 @@ namespace TakeMeHome.Controllers
 
         // GET api/<UpkeepController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var upkeep = _upkeepRepository.GetById(id);
+            if (upkeep == null)
+            {
+                return NotFound();
+            }
+            return Ok(upkeep);
         }
 
 

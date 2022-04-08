@@ -16,7 +16,7 @@ const MyArea = ({ myArea }) => {
      
        <button type="button" className="collapsible" onClick={() => setIsOpen(!isOpen)}> {myArea.name}</button>
       <div className={isOpen ? 'd-flex justify-content-evenly flex-wrap content' : 'content'}>
-          {myArea.inventoryItems.map(i => <Link to={`/inventory/create/${i.id}`} className="p-2 bd-highlight" key={i.id}> {i.name} </Link>)}
+          {myArea.inventoryItems.map(i => <Link to={`/inventory/create/${i.id}/${i.name}`} className="p-2 bd-highlight" key={i.id}> {i.name} </Link>)}
       </div>
       </CardBody>
     </Card>

@@ -3,11 +3,13 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { AreaProvider } from "../providers/AreaProvider";
 import { HomeContext, HomeProvider } from "../providers/HomeProvider";
 import { InventoryProvider } from "../providers/InventoryProvider";
-import AreaList from "./area/AreaList";
+import { UpkeepProvider } from "../providers/UpkeepProvider";
 import MyAreaList from "./area/MyAreaList";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";
 import { InventoryForm } from "./inventory/InventoryForm";
+import UpkeepDetails from "./upkeep/UpkeepDetail";
+import MyUpkeepList from "./upkeep/UpkeepList";
 
 
 export default function ApplicationViews() {
@@ -27,12 +29,16 @@ export default function ApplicationViews() {
         <HomeProvider>
         <AreaProvider>
         <InventoryProvider>
+        <UpkeepProvider>
         <Routes>
             {/* <Route path="/" element={<Hello />} /> */}
-            <Route path="/" element={ <AreaList /> } />
-            <Route path="/inventory/create/:id/*" element={ <InventoryForm /> } />
+            <Route path="/upkeeps" element={ <MyUpkeepList /> } />
+            <Route path="/upkeep/details/:id/*" element={ <UpkeepDetails /> } />
+            <Route path="/" element={ <MyAreaList /> } />
+            <Route path="/inventory/create/:id/:name*" element={ <InventoryForm /> } />
 
         </Routes>
+        </UpkeepProvider>
         </InventoryProvider>
         </AreaProvider>            
         </HomeProvider>

@@ -30,3 +30,4 @@ const Area = ({ area }) => {
 };
 
 export default Area;
+

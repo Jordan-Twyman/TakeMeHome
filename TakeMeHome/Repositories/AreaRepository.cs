@@ -47,7 +47,11 @@ namespace TakeMeHome.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "InventoryId"),
                                 Name = DbUtils.GetString(reader, "InventoryName"),
-                                AreaId = DbUtils.GetInt(reader, "AreaId")
+                                AreaId = DbUtils.GetInt(reader, "AreaId"),
+                                Area = new Area()
+                                {
+                                    Name = reader.GetString(reader.GetOrdinal("name"))
+                                }
                             });
 
                            

@@ -6,5 +6,6 @@ namespace TakeMeHome.Repositories
     public interface IHomeUpkeepRepository
     {
         List<HomeUpkeep> GetAllMyUpkeeps(int homeId);
+        HomeUpkeep GetById(int id);
     }
 }
