@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TakeMeHome.Models
 {
@@ -13,6 +14,7 @@ namespace TakeMeHome.Models
         public int? Cost { get; set; }
         public int? Count { get; set; }
 
+        
 
     }
 }

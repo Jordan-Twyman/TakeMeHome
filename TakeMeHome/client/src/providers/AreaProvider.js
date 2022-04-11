@@ -7,6 +7,7 @@ export const AreaProvider =(props) =>{
 
   const apiUrl = "https://localhost:44372";
   const [area, setArea] = useState([]);
+  const [ searchTerms, setSearchTerms ] = useState("");
 
 const getAllAreas = () => {
     return fetch(`${apiUrl}/api/Area`)
@@ -24,7 +25,7 @@ const getAllAreas = () => {
 
 
   return (
-    <AreaContext.Provider value={{ getAllAreas, area, setArea, getMyAreas   }}>
+    <AreaContext.Provider value={{ getAllAreas, area, setArea, getMyAreas, setSearchTerms, searchTerms   }}>
        {props.children}
     </AreaContext.Provider>
   );

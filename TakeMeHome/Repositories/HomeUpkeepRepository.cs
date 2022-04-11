@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TakeMeHome.Models;
 using TakeMeHome.Utils;
 
@@ -12,7 +13,7 @@ namespace TakeMeHome.Repositories
         public HomeUpkeepRepository(IConfiguration configuration) : base(configuration) { }
 
 
-        public List<HomeUpkeep> GetAllMyUpkeeps(int homeId)
+        public List <HomeUpkeep> GetAllMyUpkeeps(int homeId)
         {
             using (var conn = Connection)
             {
@@ -71,8 +72,9 @@ namespace TakeMeHome.Repositories
 
 
                     }
-                    reader.Close();
+                    reader.Close();       
 
+                    
                     return upKeeps;
                 }
 

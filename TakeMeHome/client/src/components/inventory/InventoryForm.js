@@ -41,7 +41,6 @@ const [isLoading, setIsLoading] = useState(true);
     }
 
     const handleClickSaveItem = (e) => {
-        e.preventDefault();
         setIsLoading(true);
         if (id){
           //PUT - update
@@ -52,7 +51,7 @@ const [isLoading, setIsLoading] = useState(true);
             brand:inventory.brand,
             modelNumber:inventory.modelNumber ,
             purchaseDate: inventory.purchaseDate === "" ? currentUser.constructedDate : inventory.purchaseDate
-          })
+          }).then(() => navigate(`/inventory/details/${id}`));
         }
        else{addInventory({
         

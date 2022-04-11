@@ -84,7 +84,7 @@ namespace TakeMeHome.Repositories
                                         Name = DbUtils.GetString(reader, "InventoryAreaName")
                                     }
                                 },
-                                UpKeeps = new List<Upkeep>()
+                                Upkeeps = new List<Upkeep>()
                             }) ;
 
 

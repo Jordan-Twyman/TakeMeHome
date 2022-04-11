@@ -14,7 +14,7 @@ namespace TakeMeHome.Models
         public int InventoryId { get; set; }
         public Inventory Inventory { get; set; }
 
-        public List <Upkeep> UpKeeps { get; set; }
+        public List <Upkeep> Upkeeps { get; set; }
 
     }
 }

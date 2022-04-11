@@ -1,46 +1,49 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { AreaContext } from "../../providers/AreaProvider";
 import Area from "./Area";
 
 const AreaSelect = () => {
   const { area, getAllAreas, setSearchTerms, searchTerms } = useContext(AreaContext);
-  const [ filteredItems, setFiltered ] = useState([])
+  const [ filteredItem, setFiltered ] = useState([])
+  
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getAllAreas()
   }, []);
 
   useEffect(() => {
-    if (searchTerms !== "") {
-      const subset = area.map(a => a.inventoryItems.map(i => i.area.name.includes(searchTerms)))
+    setLoading(true)
+    if (searchTerms !== "" ) {
+      const subset = area.find(a => a.name === (searchTerms))
       setFiltered(subset)
     } else {
       setFiltered(area)
-    }
+    };
+    
   }, [searchTerms, area])
+
 
   return (
     <><div className="container">
     <div className="row justify-content-center">
-      <div className="cards-column">
-        {area.map((a) => (
-          <Area key={a.id} area={a} />
-        ))}
-      </div>
+      
     </div>
   </div>
 
 <div className="form-group">
-<label htmlFor="location">Assign to location: </label>
+<label htmlFor="location">Select Area </label>
 <select name="locationId" id="animalLocation" onChange={(event) => setSearchTerms(event.target.value)} className="form-control">
-<option value="0">Select Area</option>
+<option value="0"></option>
 {area.map(l => (
-    <option key={l.id} value={l.id}>
+    <option key={l.id} value={l.name}>
   {l.name}
 </option>
 ))}
 </select>
-<div>{filteredItems.map(i => <p>{i.name}</p>)}</div>
-</div></>
+<div className="cards-column">
+        {filteredItem.inventoryItems?.map(i => <p><Link to={`/inventory/create/${i.id}/${i.name}`}>{i.name}</Link></p>)}
+      </div></div></>
     
     
   );

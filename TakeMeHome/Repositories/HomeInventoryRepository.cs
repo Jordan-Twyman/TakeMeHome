@@ -81,13 +81,13 @@ namespace TakeMeHome.Repositories
                                [ModelNumber] = @modelNumber,
                                [PurchaseDate] = @purchaseDate, 
                                [HomeId] = @homeId, 
-                               [InventoryId] = @inventoryId, 
+                               [InventoryId] = @inventoryId 
 
                                WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@brand", inventory.Brand);
-                    cmd.Parameters.AddWithValue("@modeNumber", inventory.ModelNumber);
+                    cmd.Parameters.AddWithValue("@modelNumber", inventory.ModelNumber);
                     cmd.Parameters.AddWithValue("@purchaseDate", inventory.PurchaseDate);
                     cmd.Parameters.AddWithValue("@homeId", inventory.HomeId);
                     cmd.Parameters.AddWithValue("@inventoryId", inventory.InventoryId);
@@ -105,9 +105,10 @@ namespace TakeMeHome.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT hi.Id, hi.Homeid, hi.InventoryId, hi.Brand, hi.ModelNumber, hi.PurchaseDate,
-                                               i.Name as InventoryName, i.Id as PrimaryInventoryId
+                               i.Name as InventoryName, i.Id as PrimaryInventoryId, u.Title, u.NumberOfMonths, u.Id as UpkeepId
                                         FROM HomeInventory hi
                                         Left Join Inventory i On i.Id = hi.InventoryId
+                                        Left Join Upkeep u On u.InventoryId = i.Id
                            WHERE hi.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
@@ -115,24 +116,38 @@ namespace TakeMeHome.Repositories
                     var reader = cmd.ExecuteReader();
 
                     HomeInventory inventory = null;
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        inventory = new HomeInventory()
+                        if(inventory == null)
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            HomeId = DbUtils.GetInt(reader, "HomeId"),
-                            Brand = DbUtils.GetString(reader, "Brand"),
-                            ModelNumber = DbUtils.GetString(reader, "ModelNumber"),
-                            PurchaseDate = DbUtils.GetDateTime(reader, "PurchaseDate"),
-                            InventoryId = DbUtils.GetInt(reader,"InventoryId"),
-                            Inventory = new Inventory()
+                            inventory = new HomeInventory()
                             {
-                                Id = DbUtils.GetInt(reader, "PrimaryInventoryId"),
-                                Name = DbUtils.GetString(reader, "InventoryName")
-                            },
-                            
-                        };
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                HomeId = DbUtils.GetInt(reader, "HomeId"),
+                                Brand = DbUtils.GetString(reader, "Brand"),
+                                ModelNumber = DbUtils.GetString(reader, "ModelNumber"),
+                                PurchaseDate = DbUtils.GetDateTime(reader, "PurchaseDate"),
+                                InventoryId = DbUtils.GetInt(reader, "InventoryId"),
+                                Inventory = new Inventory()
+                                {
+                                    Id = DbUtils.GetInt(reader, "PrimaryInventoryId"),
+                                    Name = DbUtils.GetString(reader, "InventoryName")
+                                },
+                                Upkeeps = new List<Upkeep>()
 
+                            };
+                        }
+                       
+                        if (DbUtils.IsNotDbNull(reader, "UpkeepId"))
+                        {
+                            inventory.Upkeeps.Add(new Upkeep()
+                            {
+                                Id = DbUtils.GetInt(reader, "UpkeepId"),
+                                Title = DbUtils.GetString(reader, "Title"),
+                                NumberOfMonths = DbUtils.GetInt(reader, "NumberOfMonths")
+                            });
+
+                        }
                     }
                     reader.Close();
 
