@@ -33,23 +33,16 @@ export default function ApplicationViews() {
         <InventoryProvider>
         <UpkeepProvider>
         <Routes>
-            {/* <Route path="/" element={<Hello />} /> */}
             <Route path="/upkeeps" element={ <MyUpkeepList /> } />
             <Route path="/upkeep/details/:id/*" element={ <UpkeepDetails /> } />
             <Route path="/" element={ <> <MyAreaList /></> } />
             <Route path="/inventory/create/:id/:name/*" element={ <InventoryForm /> } />
             <Route path="/inventory/details/:id/*" element={ <InventoryDetails /> } />
-            <Route path="/test" element={ <> </> } />
-
-
-
         </Routes>
         </UpkeepProvider>
         </InventoryProvider>
         </AreaProvider>            
         </HomeProvider>
-  
-  
      );
     }
   }

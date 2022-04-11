@@ -33,9 +33,6 @@ export default function Header() {
         <NavItem>
           <NavLink tag={RRNavLink} to="/">Home</NavLink>
             </NavItem>
-            <NavItem>
-          <NavLink tag={RRNavLink} to="/test">test</NavLink>
-            </NavItem>
             </>
           
           
