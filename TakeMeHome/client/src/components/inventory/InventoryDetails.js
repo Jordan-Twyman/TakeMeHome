@@ -28,7 +28,7 @@ const InventoryDetails = () => {
       <div className="container">
       <div className="row justify-content-center">
         <div className="col-sm-12 col-lg-6">
-          <Inventory inventory={inventory} key={id}/>
+          <Inventory inventory={inventory} key={inventory.id}/>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@ const InventoryDetails = () => {
       <div className="row justify-content-center">
       <div className="col-sm-12 col-lg-6">
     {
-        inventory.upkeeps.map(u => {
+        inventory.upkeeps?.map(u => {
 
            
                return (<ul className = "row justify-content-center">

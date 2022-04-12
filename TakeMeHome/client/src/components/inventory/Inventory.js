@@ -14,7 +14,7 @@ const Inventory = ({ inventory }) => {
   return (
     <Card className="m-4">      
     <CardBody>
-        <div ><Link to={`/inventory/create/${inventory.id}/${inventory.inventory.name}`} className="row justify-content-center">{inventory.inventory.name}</Link></div>
+        <div ><Link to={`/inventory/create/${inventory.id}/${inventory.inventory?.name}`} className="row justify-content-center">{inventory.inventory?.name}</Link></div>
     </CardBody>
   </Card>
 

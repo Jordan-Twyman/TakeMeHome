@@ -8,7 +8,7 @@ import { InventoryContext } from "../../providers/InventoryProvider";
 export const InventoryForm = () => {
 const {addInventory, updateInventory, getInventoryById} = useContext(InventoryContext);
 const currentUser = JSON.parse(sessionStorage.getItem("user"));
-const { id, name } = useParams()
+const { id, name, itemId } = useParams()
 
 const [isLoading, setIsLoading] = useState(true);
 
@@ -22,8 +22,8 @@ const [isLoading, setIsLoading] = useState(true);
     });
 
     useEffect(()=> {
-        if(id){
-            getInventoryById(id)
+        if(itemId){
+            getInventoryById(itemId)
             .then(tag => {
               setInventory(tag)
               setIsLoading(false)
@@ -41,8 +41,9 @@ const [isLoading, setIsLoading] = useState(true);
     }
 
     const handleClickSaveItem = (e) => {
+        debugger
         setIsLoading(true);
-        if (id){
+        if (itemId){
           //PUT - update
           updateInventory({
             id: inventory.id,
@@ -51,7 +52,7 @@ const [isLoading, setIsLoading] = useState(true);
             brand:inventory.brand,
             modelNumber:inventory.modelNumber ,
             purchaseDate: inventory.purchaseDate === "" ? currentUser.constructedDate : inventory.purchaseDate
-          }).then(() => navigate(`/inventory/details/${id}`));
+          }).then(() => navigate(`/inventory/details/${id}/`));
         }
        else{addInventory({
         
@@ -90,7 +91,7 @@ const [isLoading, setIsLoading] = useState(true);
                               type="submit" className="btn btn-primary" onClick={event => {
                                 event.preventDefault()
                                  handleClickSaveItem()}}>
-                              {id ? <>Save Item</> : <>Add Item</>}
+                              {itemId ? <>Save Item</> : <>Add Item</>}
                         </button>
         </form>
     )

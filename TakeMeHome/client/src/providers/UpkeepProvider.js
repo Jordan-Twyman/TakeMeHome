@@ -15,6 +15,16 @@ const getMyUpkeeps = (homeId) => {
       .then(setUpkeep);
   };
 
+  // const getMyUpkeeps = (homeId) => {
+  //   return fetch(`${apiUrl}/GetMyUpkeeps/${homeId}`)
+  //     .then((res) => res.json())
+  //     .then((parsedUpkeeps) => {
+  //       debugger
+  //       const upkeeps = parsedUpkeeps.map(u => u.upkeeps.map(u => u))
+  //       setUpkeep(upkeeps)
+  //     } );
+  // };
+
   const getUpkeep = (id) => {
     return fetch(`${apiUrl}/api/Upkeep/${id}`).then((res) => res.json());
 };

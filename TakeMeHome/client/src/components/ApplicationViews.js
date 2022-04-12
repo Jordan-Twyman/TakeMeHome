@@ -4,7 +4,7 @@ import { AreaProvider } from "../providers/AreaProvider";
 import { HomeContext, HomeProvider } from "../providers/HomeProvider";
 import { InventoryProvider } from "../providers/InventoryProvider";
 import { UpkeepProvider } from "../providers/UpkeepProvider";
-import AreaSelect from "./area/AreaSelect";
+import { AreaSelect } from "./area/AreaSelect";
 import MyAreaList from "./area/MyAreaList";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";

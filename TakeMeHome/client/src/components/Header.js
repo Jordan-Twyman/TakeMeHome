@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <> <div>
     <Navbar color="light" light expand="md">
-      <NavbarBrand tag={RRNavLink} to="/">Take Me Home</NavbarBrand>
+      { <NavbarBrand tag={RRNavLink} to="/"><img src='logo.png' alt='logo' width="" height="" /></NavbarBrand> }
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar>

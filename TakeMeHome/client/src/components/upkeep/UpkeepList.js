@@ -26,7 +26,7 @@ const MyUpkeepList = () => {
       </div>
     </div>
     <aside> <div className="container">
-      <div className="float-right"><div>{upkeep.length}</div></div>
+      <div className="float-right"><div>{upkeep.upkeeps?.length}</div></div>
       </div></aside>
       </>
   

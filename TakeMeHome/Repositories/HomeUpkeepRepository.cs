@@ -13,7 +13,7 @@ namespace TakeMeHome.Repositories
         public HomeUpkeepRepository(IConfiguration configuration) : base(configuration) { }
 
 
-        public List <HomeUpkeep> GetAllMyUpkeeps(int homeId)
+        public IEnumerable <Month> GetAllMyUpkeeps(int homeId)
         {
             using (var conn = Connection)
             {
@@ -72,10 +72,38 @@ namespace TakeMeHome.Repositories
 
 
                     }
-                    reader.Close();       
+                    reader.Close();
 
-                    
-                    return upKeeps;
+                    var upkeepsGrouped =
+    upKeeps
+        .GroupBy(u => new
+        {
+            m = u.ScheduleDate.ToString("MMMM"),
+            u.ScheduleDate.Year,
+            u.Upkeep.InventoryId,
+            v = u.Upkeep.Inventory.Name
+        })
+        .Select(gcs => new Month()
+        {
+            Year = gcs.Key.Year,
+            ItemName = gcs.Key.v,
+            Name = gcs.Key.m,
+            Upkeeps = gcs.ToList()
+            
+        });
+
+                    /* var GroupBy = upKeeps.GroupBy(u => new Month
+       {
+           Year = u.ScheduleDate.Year,
+           Name = u.ScheduleDate.Month,
+           Inventory = new List<HomeInventory>()
+           {
+
+           }
+       }).Select(uk => uk.ToList()).ToList();*/
+
+
+                    return upkeepsGrouped;
                 }
 
 
@@ -150,7 +178,7 @@ namespace TakeMeHome.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT * FROM Upkeep u
+                        SELECT u.NumberOfMonths, u.Id, hu.Cost FROM Upkeep u
                         Left JOiN HomeUpkeep hu on hu.UpkeepId = u.id
                         Where hu.Id = @Id;
                        ";
@@ -158,21 +186,28 @@ namespace TakeMeHome.Repositories
                     cmd.Parameters.AddWithValue("@Id", homeupkeep.Id);
                     var reader = cmd.ExecuteReader();
 
-                    Upkeep upkeep = null;
+                    HomeUpkeep upkeep = null;
                     if (reader.Read())
                     {
-                        upkeep = new Upkeep()
+                        upkeep = new HomeUpkeep()
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            NumberOfMonths = DbUtils.GetInt(reader,"NumberOfMonths")
+                            Cost = DbUtils.GetInt(reader, "Cost"),
+                            Upkeep = new Upkeep()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                NumberOfMonths = DbUtils.GetInt(reader, "NumberOfMonths"),
+                            }
+
                         };
+                      
 
                     }
+
                     reader.Close();
                     string upKeepInsertStatement = "";
                    
                         DateTime today = DateTime.Now;
-                        DateTime scheduleDate = today.AddMonths(upkeep.NumberOfMonths);
+                        DateTime scheduleDate = today.AddMonths(upkeep.Upkeep.NumberOfMonths);
                         upKeepInsertStatement += $@"
                             UPDATE HomeUpkeep
                             SET
@@ -184,7 +219,7 @@ namespace TakeMeHome.Repositories
                     cmd.CommandText = upKeepInsertStatement;
 
                     cmd.Parameters.AddWithValue("@HomeUpkeepId", id);
-                    cmd.Parameters.AddWithValue("@Cost", homeupkeep.Cost == null ? 0 : homeupkeep.Cost);
+                    cmd.Parameters.AddWithValue("@Cost", homeupkeep.Cost == null ? 0 : upkeep.Cost + homeupkeep.Cost);
                     cmd.Parameters.AddWithValue("@Count", homeupkeep.Count + 1);
                     cmd.ExecuteNonQuery();
                 }

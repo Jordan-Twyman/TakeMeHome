@@ -1,7 +1,7 @@
 import { Card, CardBody } from "reactstrap";
-import moment from "moment";
 import "../../App.css";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 
 
@@ -9,17 +9,16 @@ const Upkeep = ({ upkeep }) => {
 
     const currentUser = JSON.parse(sessionStorage.getItem("user"));
     const currentUserId = currentUser.id
-    var date = upkeep.scheduleDate;
-    var formatted = moment(date).format('L');
-
+   
+   
   return (
-    <Card className="m-4">      
-    <CardBody>
-        <div>{upkeep.upkeep.inventory.name}</div>
-        <div><Link to={`/upkeep/details/${upkeep.id}`}>{upkeep.upkeep.title}</Link></div>
-        <div>{formatted}</div>
-    </CardBody>
-  </Card>
+    <div className="m-4">      
+    <div>
+        <div>{upkeep.name} {upkeep.year}</div>
+        <strong>{upkeep.itemName}</strong>
+        <div>{upkeep.upkeeps?.map(u => <Card ><p className="m-4"><Link to={`/upkeep/details/${u.id}`}>{u.upkeep.title}</Link> Due: {moment(u.scheduleDate).format('L')}</p></Card>)}</div>
+    </div>
+  </div>
 
 
     

@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import React, { useContext, useEffect, useState } from "react";
 import { AreaContext } from "../../providers/AreaProvider";
-import AreaSelect from "./AreaSelect";
+import { AreaSelect } from "./AreaSelect";
 import MyArea from "./MyArea";
 
 const MyAreaList = () => {
@@ -37,7 +37,7 @@ const MyAreaList = () => {
   </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Inventory Items</Modal.Title>
         </Modal.Header>
         <Modal.Body><AreaSelect /></Modal.Body>
         <Modal.Footer>
