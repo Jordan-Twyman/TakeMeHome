@@ -1,8 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using TakeMeHome.Models;
 using TakeMeHome.Utils;
 
@@ -68,29 +68,38 @@ namespace TakeMeHome.Repositories
                             }
                         });
 
+                        var upkeepId = DbUtils.GetInt(reader, "Id");
 
-
+                        var existingupkeep = upKeeps.FirstOrDefault(a => a.Id == upkeepId);
 
                     }
+
+
+
+                    
+
                     reader.Close();
 
-                    var upkeepsGrouped =
-    upKeeps
-        .GroupBy(u => new
-        {
+
+               var upkeepsGrouped = upKeeps.GroupBy(u => new 
+               {
             m = u.ScheduleDate.ToString("MMMM"),
+            v = u.Upkeep.Inventory.Name,
             u.ScheduleDate.Year,
-            u.Upkeep.InventoryId,
-            v = u.Upkeep.Inventory.Name
-        })
-        .Select(gcs => new Month()
+    
+        }).Select(gcs => new Month()
         {
+            
             Year = gcs.Key.Year,
-            ItemName = gcs.Key.v,
             Name = gcs.Key.m,
+            ItemName = gcs.Key.v,
             Upkeeps = gcs.ToList()
             
         });
+
+
+
+               
 
                     /* var GroupBy = upKeeps.GroupBy(u => new Month
        {

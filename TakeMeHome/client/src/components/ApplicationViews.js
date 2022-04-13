@@ -12,18 +12,23 @@ import InventoryDetails from "./inventory/InventoryDetails";
 import { InventoryForm } from "./inventory/InventoryForm";
 import UpkeepDetails from "./upkeep/UpkeepDetail";
 import MyUpkeepList from "./upkeep/UpkeepList";
+import "../index.css";
 
 
 export default function ApplicationViews() {
     const { isLoggedIn } = useContext(HomeContext);
   
     if (!isLoggedIn) {
-      return (  
+      return ( 
+        <div className="auth-wrapper">
+        <div className="auth-inner"> 
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<Navigate to="/login" />} />      
-        </Routes> 
+        </Routes>
+        </div> 
+        </div>
       );
     }
     else{

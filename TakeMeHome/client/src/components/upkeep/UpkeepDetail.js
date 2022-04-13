@@ -54,7 +54,7 @@ const UpkeepDetails = () => {
     {upkeep.upkeep.title}</strong>
         <em className="row justify-content-center">
     {upkeep.upkeep.description}</em>
-    {upkeep.cost !== 0 ? <div className="m-4">
+    {upkeep.cost !== 0 && upkeep.cost !== null ? <div className="m-4">
     Lifetime Cost: {upkeep.cost}</div> :""}
    </Card>
    <div> <Button className = "row justify-content-center m-4" variant="primary" onClick={handleShow}>

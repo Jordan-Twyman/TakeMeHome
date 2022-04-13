@@ -106,10 +106,10 @@ namespace TakeMeHome.Repositories
                     cmd.CommandText = @"
                         SELECT hi.Id, hi.Homeid, hi.InventoryId, hi.Brand, hi.ModelNumber, hi.PurchaseDate,
                                i.Name as InventoryName, i.Id as PrimaryInventoryId, u.Title, u.NumberOfMonths, u.Id as UpkeepId
-                                        FROM HomeInventory hi
-                                        Left Join Inventory i On i.Id = hi.InventoryId
+                                        FROM Inventory i
+                                        Left Join HomeInventory hi On i.Id = hi.InventoryId
                                         Left Join Upkeep u On u.InventoryId = i.Id
-                           WHERE hi.Id = @Id";
+                           WHERE i.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
