@@ -12,7 +12,7 @@ const Upkeep = ({ upkeep }) => {
     const singleItem = upkeep.upkeepItems.map((item, index) => {
 return (
   <div key={index}>
-    <h1>{item.name}</h1>
+    <h4>{item.name}</h4>
     {item.upkeeps.map((c, i) => (
       <div key={i}>
         <p><p className="m-4"><Link to={`/upkeep/details/${c.id}`}>{c.upkeep.title}</Link> Due: {moment(c.scheduleDate).format('L')}</p></p>
@@ -29,7 +29,7 @@ return (
   return (
     <div className="m-4">      
     <div>
-        <div>{upkeep.name} {upkeep.year}</div>
+        <div><h3>{upkeep.name} <small>{upkeep.year}</small></h3> </div>
         <div>{singleItem}</div>
     </div>
   </div>

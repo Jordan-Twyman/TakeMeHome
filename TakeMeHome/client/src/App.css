@@ -13,16 +13,16 @@ h1,h2,h3,h4,h5,h6,label,span {
   font-family: 'Fira Sans', sans-serif;
 }
 body, html, .App, #root, .auth-wrapper {
-  min-width: 100%;
-  min-height: 100%;
-  background: url("../public/background.png") no-repeat center center fixed; 
-  -webkit-background-size: 100%;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  height: 100%;
+  
   overflow: overflow-y;
 
 }
+
+#page-content {
+  flex: 1 0 auto;
+}
+
 
 
 
@@ -73,7 +73,6 @@ body, html, .App, #root, .auth-wrapper {
 }
 
 body,
-button,
 select {
   color: white;
   font-family: 'Lato', sans-serif;
@@ -81,6 +80,15 @@ select {
   line-height: 1.5;
   height: auto;
 }
+
+
+
+body {
+  background: url("../public/background.png") no-repeat 100% 100% fixed; 
+  -webkit-background-size: 100%;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
 
 h1,
 h2,
@@ -98,9 +106,30 @@ p {
 
 .card {
 margin: 10px;
+opacity: 0.80;
 }
 
-.collapsible,.collapsible2 {
+.cards-column-upkeeps {
+  background-color: rgb(255,255,255, 75%);
+  margin-bottom: 100px;
+}
+.cards-column {
+  position:relative;
+  margin:150px;
+  /* z-index: -1; */
+}
+
+.navbar {
+  margin-bottom: 25px;
+}
+
+.inventory {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);}
+
+
+
+.collapsible {
   background-color: #708090;
   color: white;
   cursor: pointer;
@@ -111,18 +140,18 @@ margin: 10px;
   outline: none;
   font-size: 15px;
 }
- .collapsible:hover,.collapsible2:hover {
+ .collapsible:hover {
   background-color: #536878;
 }
 
-.content, .content2 {
+.content {
   padding: 0 18px;
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
 }
 
-.collapsible:after,.collapsible2:after {
+.collapsible:after {
   content: '\02795'; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
   color: white;
@@ -130,22 +159,76 @@ margin: 10px;
   margin-left: 5px;
 }
 
-
-
-.demo-footer {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	padding: 15px;
-	background-color: #212121;
-	text-align: center;
+aside {
+  width: auto;
+  padding-left: .5rem;
+  margin-left: .5rem;
+  float: right;
+  box-shadow: inset 5px 0 5px -5px #29627e;
+  font-style: italic;
+  color: #29627e;
+  background-color: rgb(255,255,255, 50%)
 }
 
-.demo-footer > a {
-	text-decoration: none;
-	font-weight: bold;
-	font-size: 16px;
-	color: #fff;
+aside > p {
+  margin: .5rem;
+}
+
+.welcome {
+  font-style: italic;
+  font-size:large;
+  font-weight: bold;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin-top:100px ;
+  z-index: 9999;
+
+}
+
+footer div {
+  
+  margin: 1em;
+}
+
+
+#footer-logo {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+}
+
+.github-logo {
+  font-size: 1.3em;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+
+option:first {
+  color: rgb(199, 199, 199);
+}
+
+.footer-copyright {
+  color: white;
+}
+
+ #entry-text {
+  width: 75%
+}
+
+#concept-text {
+  width: 50%;
 }
 
 

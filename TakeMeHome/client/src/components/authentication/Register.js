@@ -10,6 +10,7 @@ export default function Register() {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [constructedDate, setConstructedDate] = useState();
+  const [purchaseDate, setPurchaseDate] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
@@ -21,7 +22,7 @@ export default function Register() {
       } else {
         const homeProfile = { firstName, lastName, email, constructedDate };
         register(homeProfile, password)
-          .then(() => navigate("/"));
+          .then(() => navigate("/select"));
       }
    
  };
@@ -52,6 +53,10 @@ export default function Register() {
         <FormGroup>
           <Label for="constructedDate">What year was your home constructed?</Label>
           <Input id="constructedDate" type="date" onChange={e => setConstructedDate(e.target.value)} />
+        </FormGroup>
+        <FormGroup>
+          <Label for="purchaseDate">Closing Date</Label>
+          <Input id="purchaseDate" type="date" onChange={e => setPurchaseDate(e.target.value)} />
         </FormGroup>
         <FormGroup>
           <Button>Register</Button>

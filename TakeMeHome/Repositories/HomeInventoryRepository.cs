@@ -188,5 +188,37 @@ namespace TakeMeHome.Repositories
                 }
             };
         }
+
+        public List<Inventory> GetAllInventory()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT * from Inventory";
+                    var reader = cmd.ExecuteReader();
+
+                    var inventory = new List<Inventory>();
+
+                    while (reader.Read())
+                    {
+
+                        
+                            inventory.Add( new Inventory()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("name"))
+
+                            });
+                       
+
+                    }
+                    reader.Close();
+
+                    return inventory;
+                }
+            }
+        }
     }
 }

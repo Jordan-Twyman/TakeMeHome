@@ -10,6 +10,8 @@ namespace TakeMeHome.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime ConstructedDate { get; set; }
+        public DateTime PurchaseDate { get; set; }
+
 
         public List <HomeInventory> Inventory { get; set; }
 

@@ -12,13 +12,14 @@ const MyUpkeepList = () => {
   }, []);
 
   
+  
 
   return (
       <>
         <div className="container">
       <div className="row justify-content-center">
           
-        <div className="cards-column">
+        <div className="cards-column-upkeeps">
           {upkeep.map((u) => (
             <Upkeep key={u.id} upkeep={u} />
           ))}

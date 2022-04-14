@@ -17,8 +17,6 @@ INSERT INTO Inventory (Name, AreaId) VALUES ('Kitchen Countertops', 1)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Garbage Disposal', 1)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Wall Oven', 1)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Cooktop', 1)
-
-
 INSERT INTO Inventory (Name, AreaId) VALUES ('Furnace', 2)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Boiler', 2)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Cieling Fan', 2)
@@ -31,19 +29,12 @@ INSERT INTO Inventory (Name, AreaId) VALUES ('Wood-burning Fireplace', 2)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Smoke Detectors', 2)
 INSERT INTO Inventory (Name, AreaId) VALUES ('CO Detectors', 2)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Home Security', 2)
-
-
-
-
 INSERT INTO Inventory (Name, AreaId) VALUES ('Washer', 3)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Dryer', 3)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Water Heater', 3)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Water Filtration', 3)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Water Softener', 3)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Generator', 3)
-
-
-
 INSERT INTO Inventory (Name, AreaId) VALUES ('Roof', 4)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Gutters', 4)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Foundation', 4)
@@ -53,9 +44,6 @@ INSERT INTO Inventory (Name, AreaId) VALUES ('Front Door', 4)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Back Door', 4)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Sliding Door', 4)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Garage Door', 4)
-
-
-
 INSERT INTO Inventory (Name, AreaId) VALUES ('Driveway', 5)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Walkway', 5)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Lawn', 5)
@@ -64,16 +52,12 @@ INSERT INTO Inventory (Name, AreaId) VALUES ('Patio', 5)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Fence', 5)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Trees', 5)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Plants', 5)
-
-
 INSERT INTO Inventory (Name, AreaId) VALUES ('Toilet', 6)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Bathroom Sink', 6)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Bathroom Countertops', 6 )
 INSERT INTO Inventory (Name, AreaId) VALUES ('Showerhead', 6)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Bath/Shower Surround', 6)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Bathroom Fan', 6)
-
-
 INSERT INTO Inventory (Name, AreaId) VALUES ('Hardwood Flooring', 7)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Carpet Flooring', 7)
 INSERT INTO Inventory (Name, AreaId) VALUES ('Tile Flooring', 7)

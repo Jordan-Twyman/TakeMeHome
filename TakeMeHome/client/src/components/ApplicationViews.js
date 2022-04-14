@@ -13,6 +13,8 @@ import { InventoryForm } from "./inventory/InventoryForm";
 import UpkeepDetails from "./upkeep/UpkeepDetail";
 import MyUpkeepList from "./upkeep/UpkeepList";
 import "../index.css";
+import AreaList from "./inventory/InventoryList";
+import InventoryList from "./inventory/InventoryList";
 
 
 export default function ApplicationViews() {
@@ -20,6 +22,7 @@ export default function ApplicationViews() {
   
     if (!isLoggedIn) {
       return ( 
+    
         <div className="auth-wrapper">
         <div className="auth-inner"> 
         <Routes>
@@ -38,6 +41,8 @@ export default function ApplicationViews() {
         <InventoryProvider>
         <UpkeepProvider>
         <Routes>
+            
+            <Route path="/select" element={<InventoryList />} />
             <Route path="/upkeeps" element={ <MyUpkeepList /> } />
             <Route path="/upkeep/details/:id/*" element={ <UpkeepDetails /> } />
             <Route path="/" element={ <> <MyAreaList /></> } />
