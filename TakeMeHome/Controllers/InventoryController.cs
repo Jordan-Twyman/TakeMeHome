@@ -25,10 +25,10 @@ namespace TakeMeHome.Controllers
         }
 
         // GET api/<InventoryController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("{id}/{homeId}")]
+        public IActionResult Get(int id, int homeId)
         {
-            var inventory = _inventoryRepository.GetById(id);
+            var inventory = _inventoryRepository.GetById(id, homeId);
             if (inventory == null)
             {
                 return NotFound();

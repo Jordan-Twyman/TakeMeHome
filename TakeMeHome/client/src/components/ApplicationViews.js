@@ -4,7 +4,6 @@ import { AreaProvider } from "../providers/AreaProvider";
 import { HomeContext, HomeProvider } from "../providers/HomeProvider";
 import { InventoryProvider } from "../providers/InventoryProvider";
 import { UpkeepProvider } from "../providers/UpkeepProvider";
-import { AreaSelect } from "./area/AreaSelect";
 import MyAreaList from "./area/MyAreaList";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";
@@ -13,7 +12,6 @@ import { InventoryForm } from "./inventory/InventoryForm";
 import UpkeepDetails from "./upkeep/UpkeepDetail";
 import MyUpkeepList from "./upkeep/UpkeepList";
 import "../index.css";
-import AreaList from "./inventory/InventoryList";
 import InventoryList from "./inventory/InventoryList";
 
 

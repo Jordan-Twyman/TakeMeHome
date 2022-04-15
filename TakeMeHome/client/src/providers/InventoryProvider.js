@@ -18,7 +18,9 @@ export const InventoryProvider =(props) =>{
   };
 
   const getInventoryById = (id) => {
-    return fetch(`${apiUrl}/api/Inventory/${id}`).then((res) => res.json());
+    const currentUser = JSON.parse(sessionStorage.getItem("user"));
+    debugger
+    return fetch(`${apiUrl}/api/Inventory/${id}/${currentUser.id}`).then((res) => res.json());
 };
   const addInventory = (inventory) => {
     return fetch(`${apiUrl}/api/Inventory`, {

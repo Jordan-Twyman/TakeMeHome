@@ -180,6 +180,11 @@ aside > p {
   font-weight: bold;
 }
 
+.inventory-info {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Footer */
 footer {
   display: flex;

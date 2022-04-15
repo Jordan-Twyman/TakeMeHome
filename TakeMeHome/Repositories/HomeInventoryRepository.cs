@@ -21,7 +21,7 @@ namespace TakeMeHome.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT * FROM Upkeep
+                        SELECT Id, InventoryId, Title, NumberOfMonths, Description FROM Upkeep
                         Where InventoryId = @InventoryId;
                        ";
 
@@ -49,7 +49,7 @@ namespace TakeMeHome.Repositories
                         DateTime scheduleDate = today.AddMonths(singleUpkeep.NumberOfMonths);
 
                         upKeepInsertStatement += $@"INSERT INTO HomeUpkeep (UpkeepId, HomeId, ScheduleDate, Count) VALUES ({singleUpkeep.Id}, {inventory.HomeId}, '{scheduleDate}',0 ); ";
-                        Console.WriteLine("");
+                        
 
                     }
                         upKeepInsertStatement += @"INSERT INTO HomeInventory(HomeId, InventoryId, Brand, ModelNumber, PurchaseDate)
@@ -96,7 +96,7 @@ namespace TakeMeHome.Repositories
                 }
             }
         }
-        public HomeInventory GetById(int id)
+        public HomeInventory GetById(int id, int homeId)
         {
             using (var conn = Connection)
             {
@@ -105,13 +105,15 @@ namespace TakeMeHome.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT hi.Id, hi.Homeid, hi.InventoryId, hi.Brand, hi.ModelNumber, hi.PurchaseDate,
-                               i.Name as InventoryName, i.Id as PrimaryInventoryId, u.Title, u.NumberOfMonths, u.Id as UpkeepId
+                               i.Name as InventoryName, i.Id as PrimaryInventoryId, u.Title, u.NumberOfMonths, u.Id as UpkeepId, u.InventoryId as UpkeepInventoryId
                                         FROM Inventory i
                                         Left Join HomeInventory hi On i.Id = hi.InventoryId
                                         Left Join Upkeep u On u.InventoryId = i.Id
-                           WHERE i.Id = @Id";
+                           WHERE i.Id = @Id and hi.Homeid = @HomeId";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
+                    DbUtils.AddParameter(cmd, "@Homeid", homeId);
+
 
                     var reader = cmd.ExecuteReader();
 
@@ -144,7 +146,9 @@ namespace TakeMeHome.Repositories
                             {
                                 Id = DbUtils.GetInt(reader, "UpkeepId"),
                                 Title = DbUtils.GetString(reader, "Title"),
-                                NumberOfMonths = DbUtils.GetInt(reader, "NumberOfMonths")
+                                NumberOfMonths = DbUtils.GetInt(reader, "NumberOfMonths"),
+                                InventoryId = DbUtils.GetInt(reader, "UpkeepInventoryId")
+
                             });
 
                         }

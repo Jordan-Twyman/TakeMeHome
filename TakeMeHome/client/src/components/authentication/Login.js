@@ -15,7 +15,7 @@ export default function Login() {
     login({email, password})
       .then(r =>{
       if(r){
-      navigate("/")
+      navigate("/upkeeps")
       }
       else{
         alert("Invalid email or password")

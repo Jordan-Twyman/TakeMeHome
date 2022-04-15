@@ -81,7 +81,7 @@ export default function Header() {
         </a>
       </button>
       </div>
-    <div className="footer-copyright">Take Me Home &copy;2022</div>
+    <div className="footer-copyright"><small>Take Me Home &copy;2022</small></div>
   </footer>
  
  </>

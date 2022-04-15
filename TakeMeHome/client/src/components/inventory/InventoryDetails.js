@@ -1,14 +1,20 @@
 import React, { useEffect, useContext, useState } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { InventoryContext } from "../../providers/InventoryProvider";
 import Inventory from "./Inventory";
+import { Card, Col, Container, Row, Stack } from "react-bootstrap";
+import { UpkeepContext } from "../../providers/UpkeepProvider";
+import moment from "moment";
+
 
 const InventoryDetails = () => {
   const { updateInventory, getInventoryById} = useContext(InventoryContext);
+  const { upkeep, getMyUpkeeps } = useContext(UpkeepContext);
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
   const { id } = useParams();
   const [idToEdit, setIdToEdit] = useState(0)
+  
 
   const [inventory, setInventory] = useState({
         
@@ -40,14 +46,13 @@ updateInventory({
   purchaseDate: inventory.purchaseDate === "" ? currentUser.constructedDate : inventory.purchaseDate
 })
 setIdToEdit(0)
-            setInventory({})
-            getInventoryById(id).then(() => { getInventoryById(id).then(setInventory)
-            }) 
+getInventoryById(id)
+            
 }
 
 
   useEffect(() => {
-    getInventoryById(id).then(setInventory);
+    getInventoryById(id).then(setInventory).then(getMyUpkeeps(currentUser.id));
     debugger
   }, []);
 
@@ -82,18 +87,16 @@ setIdToEdit(0)
 onClick={handleClickSaveItem}> {<>Save Item</>}
 </button> <button className="btn btn-danger" onClick={(() => (setIdToEdit(0)))}>Cancel</button>
 </form> 
-   <div className="col-sm-12 col-lg-6">
    {
-       inventory.upkeeps?.map(u => {
+       inventory.upkeeps?.map(u =>  { 
 
           
-              return (<ul className = "row justify-content-center">
-                  <li key={u.id}> {u.title}: every {u.numberOfMonths} months</li>
-              </ul>  )
+              return (<div gap={10} className="col-md-5 mx-auto">
+                  <Card body gap={3} className="bg-light border" key={u.id}> <h3>{u.title}</h3> {u.numberOfMonths !== 12 ? `every ${u.numberOfMonths} months` : "annually"} </Card>
+              </div>  )
       }
      )  
    }     
-               </div> 
       </> 
           )
     
@@ -105,35 +108,30 @@ onClick={handleClickSaveItem}> {<>Save Item</>}
       
       <div className="row justify-content-center">
       
-        <div className="col-sm-12 col-lg-6">
-          
-          <Inventory inventory={inventory} key={inventory.id}/>
-         
+        <div className="col-sm-12 col-lg-6">        
+            <Inventory inventory={inventory} key={inventory.id}/>
+  
         </div>
       </div>
       
     </div>
     <div className="container">
-      <div className="row justify-content-center">
-      <div className="col-sm-12 col-lg-6">
-    {
-        inventory.upkeeps?.map(u => {
+   {
+       inventory.upkeeps?.map(u =>  { 
 
-           
-               return (<ul className = "row justify-content-center">
-                   <li key={u.id}> {u.title}: every {u.numberOfMonths} months</li>
-               </ul>  )
-       }
-      )  
-    }     
+          
+              return (<div gap={10} className="col-md-5 mx-auto">
+                  <Card body gap={3} className="bg-light border" key={u.id}> <h3>{u.title}</h3> {u.numberOfMonths !== 12 ? `every ${u.numberOfMonths} months` : "annually"} </Card>
+              </div>  )
+      }
+     )  
+   }        
      <div><button primary type="submit" className="btn btn-secondary justify-content-center" onClick={onClickHandler}>
             edit
             </button></div>
-                </div>
                 
     </div>
    
-      </div>
     </>
  
   );
