@@ -23,7 +23,6 @@ return (
 )
 
     })
-    console.log(singleItem)
 
   
   return (
