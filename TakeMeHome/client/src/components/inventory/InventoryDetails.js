@@ -12,7 +12,7 @@ const InventoryDetails = () => {
   const { updateInventory, getInventoryById} = useContext(InventoryContext);
   const { upkeep, getMyUpkeeps } = useContext(UpkeepContext);
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
-  const { id } = useParams();
+  const { id, name } = useParams();
   const [idToEdit, setIdToEdit] = useState(0)
   
 
@@ -53,7 +53,6 @@ getInventoryById(id)
 
   useEffect(() => {
     getInventoryById(id).then(setInventory).then(getMyUpkeeps(currentUser.id));
-    debugger
   }, []);
 
 
@@ -64,9 +63,12 @@ getInventoryById(id)
   else  if (id === idToEdit) {
     return (      
       <>
-      <form className="inventoryForm">
+            <div className="containerAll">
+      <div className="form-container">
+      <form className="inventoryForm w-50">
     <fieldset>
-        <div className="form-group">
+        <div className="form-group ">
+          <Card><h3 className="row justify-content-center">The {currentUser.lastName}'s {name}</h3></Card>
             <label htmlFor="brand">Brand:</label>
             <input value={inventory.brand} type="text" id="brand" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="brand"/>
         </div>
@@ -86,7 +88,8 @@ getInventoryById(id)
        <button className="btn btn-primary btn-secondary"
 onClick={handleClickSaveItem}> {<>Save Item</>}
 </button> <button className="btn btn-danger" onClick={(() => (setIdToEdit(0)))}>Cancel</button>
-</form> 
+</form>
+</div> 
    {
        inventory.upkeeps?.map(u =>  { 
 
@@ -96,7 +99,8 @@ onClick={handleClickSaveItem}> {<>Save Item</>}
               </div>  )
       }
      )  
-   }     
+   }   
+   </div>  
       </> 
           )
     
@@ -108,9 +112,12 @@ onClick={handleClickSaveItem}> {<>Save Item</>}
       
       <div className="row justify-content-center">
       
-        <div className="col-sm-12 col-lg-6">        
+        <div className="col-sm-12 col-lg-6">  
+           
             <Inventory inventory={inventory} key={inventory.id}/>
-  
+            <button primary type="submit" className="btn btn-secondary row justify-content-center" style={{'margin-left':'45%'}} onClick={onClickHandler}>
+            edit
+            </button> 
         </div>
       </div>
       
@@ -126,9 +133,7 @@ onClick={handleClickSaveItem}> {<>Save Item</>}
       }
      )  
    }        
-     <div><button primary type="submit" className="btn btn-secondary justify-content-center" onClick={onClickHandler}>
-            edit
-            </button></div>
+     
                 
     </div>
    

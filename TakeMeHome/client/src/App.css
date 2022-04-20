@@ -13,8 +13,7 @@ h1,h2,h3,h4,h5,h6,label,span {
   font-family: 'Fira Sans', sans-serif;
 }
 body, html, .App, #root, .auth-wrapper {
-  height: 100%;
-  min-height: 100vh;
+  min-height: auto;
   overflow: overflow-y;
 
 }
@@ -23,6 +22,13 @@ body, html, .App, #root, .auth-wrapper {
   flex: 1 0 auto;
 }
 
+nav {
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin: 5px
+}
 
 
 
@@ -35,7 +41,7 @@ body, html, .App, #root, .auth-wrapper {
   justify-content: center;
   flex-direction: column;
   text-align: left;
-  margin: 5px
+  margin: 25px
 }
 .auth-inner {
   width: 350px;
@@ -117,7 +123,6 @@ opacity: 0.80;
 .cards-column {
   position:relative;
   margin:150px;
-  /* z-index: -1; */
 }
 
 
@@ -195,14 +200,21 @@ footer {
   text-align: center;
   z-index: 9999;
   height: auto;
-  margin-top:50px
 }
 
 footer div {
   
-  margin: .4em;
+  margin: 1em;
+}
+.form-container{
+display:flex;
+justify-content: center;
 }
 
+
+.containerAll {
+  background-color: rgb(211,211,211, 25%);
+}
 
 #footer-logo {
   width: 100px;

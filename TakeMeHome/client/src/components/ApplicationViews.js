@@ -45,7 +45,7 @@ export default function ApplicationViews() {
             <Route path="/upkeep/details/:id/*" element={ <UpkeepDetails /> } />
             <Route path="/" element={ <> <MyAreaList /></> } />
             <Route path="/inventory/create/:id/:name/*" element={ <InventoryForm /> } />
-            <Route path="/inventory/details/:id/*" element={ <InventoryDetails /> } />
+            <Route path="/inventory/details/:id/:name/*" element={ <InventoryDetails /> } />
         </Routes>
         </UpkeepProvider>
         </InventoryProvider>
