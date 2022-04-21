@@ -200,7 +200,7 @@ namespace TakeMeHome.Repositories
                     {
                         upkeep = new HomeUpkeep()
                         {
-                            Cost = DbUtils.GetInt(reader, "Cost"),
+                            Cost = DbUtils.GetNullableInt(reader, "Cost"),
                             Upkeep = new Upkeep()
                             {
                                 Id = DbUtils.GetInt(reader, "Id"),
@@ -228,7 +228,7 @@ namespace TakeMeHome.Repositories
                     cmd.CommandText = upKeepInsertStatement;
 
                     cmd.Parameters.AddWithValue("@HomeUpkeepId", id);
-                    cmd.Parameters.AddWithValue("@Cost", homeupkeep.Cost == null ? 0 : upkeep.Cost + homeupkeep.Cost);
+                    cmd.Parameters.AddWithValue("@Cost", upkeep.Cost == null ? 0 + homeupkeep.Cost : upkeep.Cost + homeupkeep.Cost);
                     cmd.Parameters.AddWithValue("@Count", homeupkeep.Count + 1);
                     cmd.ExecuteNonQuery();
                 }
