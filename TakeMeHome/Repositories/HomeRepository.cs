@@ -21,18 +21,37 @@ namespace TakeMeHome.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, FirstName, LastName, Email, ConstructedDate, PurchaseDate
-                          FROM Home
-                         WHERE Email = @email";
+                        SELECT h.Id, h.FirstName, h.LastName, h.Email, h.ConstructedDate, h.PurchaseDate, i.InventoryId, i.HomeId, i.Id as HomeInventoryId 
+                          FROM Home h
+                           Left Join HomeInventory i on i.HomeId = h.Id
+                         WHERE h.Email = @email";
 
                     DbUtils.AddParameter(cmd, "@email", email);
 
                     Home home = null;
 
                     var reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        home = NewHomeFromReader(reader);
+                        if (home == null)
+                        {
+                            {
+                                home = NewHomeFromReader(reader);
+                            };
+                        }
+
+                        if (DbUtils.IsNotDbNull(reader, "HomeInventoryId"))
+                        {
+                            home.Inventory.Add(new HomeInventory()
+                            {
+                                Id = DbUtils.GetInt(reader, "HomeInventoryId"),
+                                InventoryId = DbUtils.GetInt(reader, "InventoryId"),
+                                HomeId = DbUtils.GetInt(reader,"HomeId")
+                             
+                            });
+
+
+                        }
                     }
                     reader.Close();
 
@@ -74,7 +93,9 @@ namespace TakeMeHome.Repositories
                 LastName = DbUtils.GetString(reader, "LastName"),
                 Email = DbUtils.GetString(reader, "Email"),
                 ConstructedDate = DbUtils.GetDateTime(reader, "ConstructedDate"),
-                PurchaseDate = (DateTime)DbUtils.GetNullableDateTime(reader, "PurchaseDate")
+                PurchaseDate = (DateTime)DbUtils.GetNullableDateTime(reader, "PurchaseDate"),
+                Inventory = new List<HomeInventory>()
+            
 
             };
         }

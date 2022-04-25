@@ -30,6 +30,16 @@ const { id, name } = useParams()
 
     const handleClickSaveItem = (e) => {
         e.preventDefault();
+        const currentItemId = parseInt(inventory.inventoryId)
+        const inventoryList = currentUser.inventory?.map(h => h.inventoryId)
+        debugger
+        console.log(inventoryList)
+        if(inventoryList.includes(currentItemId))
+        {
+            window.alert("You already have this item!");
+        }
+        else{
+            debugger
         addInventory({
         
             homeId:currentUser.id,
@@ -37,7 +47,8 @@ const { id, name } = useParams()
             brand:inventory.brand,
             modelNumber:inventory.modelNumber ,
             purchaseDate: inventory.purchaseDate === "" ? currentUser.purchaseDate : inventory.purchaseDate       
-        }).then(() => navigate('/'));          
+        }).then(() => navigate('/'));
+    }          
     }
 
     return (
