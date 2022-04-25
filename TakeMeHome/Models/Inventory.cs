@@ -1,4 +1,6 @@
-﻿namespace TakeMeHome.Models
+﻿using System.Collections.Generic;
+
+namespace TakeMeHome.Models
 {
     public class Inventory
     {
@@ -6,5 +8,8 @@
         public string Name { get; set; }
         public int AreaId { get; set; }
         public Area Area { get; set; }
+
+        public List<HomeUpkeep> Upkeeps { get; set; }
+
     }
 }

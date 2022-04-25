@@ -72,10 +72,12 @@ namespace TakeMeHome.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT a.Id, a.Name, i.Id as InventoryId, i.Name as InventoryName, i.AreaId, hi.InventoryId 
+                    cmd.CommandText = @"SELECT a.Id, a.Name, i.Id as InventoryId, i.Name as InventoryName, i.AreaId, hi.InventoryId as HomeInventoryId, hu.Cost, hu.Count, hu.Id as UpkeepId
                                         FROM Area a
                                         Left Join Inventory i On i.AreaId = a.Id
                                         Left Join HomeInventory hi on hi.InventoryId = i.Id
+                                        Left Join Upkeep u on u.InventoryId = i.Id
+                                        Left Join HomeUpkeep hu on hu.UpkeepId = u.Id
                                         Where hi.HomeId = @homeId;";
 
                     DbUtils.AddParameter(cmd, "@homeId", homeId);
@@ -89,6 +91,10 @@ namespace TakeMeHome.Repositories
                         var areaId = DbUtils.GetInt(reader, "Id");
 
                         var existingArea = areas.FirstOrDefault(a => a.Id == areaId);
+
+                        var inventoryId = DbUtils.GetInt(reader, "InventoryId");
+
+
                         if (existingArea == null)
                         {
                             existingArea = new Area()
@@ -99,15 +105,33 @@ namespace TakeMeHome.Repositories
                             };
                             areas.Add(existingArea);
                         }
-                        if (DbUtils.IsNotDbNull(reader, "InventoryId"))
-                        { 
-                            existingArea.InventoryItems.Add(new Inventory()
+                        var existingInventory = existingArea.InventoryItems.FirstOrDefault(a => a.Id == inventoryId);
+
+
+                        if (existingInventory == null)
+                        {
+                            existingInventory = new Inventory()
                             {
                                 Id = DbUtils.GetInt(reader, "InventoryId"),
                                 Name = DbUtils.GetString(reader, "InventoryName"),
-                                AreaId = DbUtils.GetInt(reader, "AreaId")
-                            });
+                                AreaId = DbUtils.GetInt(reader, "AreaId"),
+                                Upkeeps = new List<HomeUpkeep>()
 
+                            };
+                            existingArea.InventoryItems.Add(existingInventory);
+
+
+                        }
+
+                        if (DbUtils.IsNotDbNull(reader, "UpkeepId"))
+                        {
+                            existingInventory.Upkeeps.Add(new HomeUpkeep()
+                            {
+                                Id = DbUtils.GetInt(reader, "UpkeepId"),
+                                Cost = DbUtils.GetNullableInt(reader, "Cost"),
+                                Count = DbUtils.GetNullableInt(reader, "Count"),
+
+                            });
 
                         }
 

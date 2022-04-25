@@ -82,7 +82,7 @@ getInventoryById(id)
     <fieldset>
         <div className="form-group">
             <label htmlFor="purchaseDate">Purchase Date:</label>
-            <input value={inventory.purchaseDate} type="date" id="purchaseDate" onChange={handleControlledInputChange}   className="form-control"/>
+            <input value={moment(inventory.purchaseDate).format('YYYY-MM-DD')} type="date" id="purchaseDate" onChange={handleControlledInputChange}   className="form-control"/>   
         </div>
     </fieldset>  
        <button className="btn btn-primary btn-secondary"

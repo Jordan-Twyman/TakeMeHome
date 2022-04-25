@@ -38,8 +38,7 @@ export default function ApplicationViews() {
         <AreaProvider>
         <InventoryProvider>
         <UpkeepProvider>
-        <Routes>
-            
+        <Routes>            
             <Route path="/select" element={<InventoryList />} />
             <Route path="/upkeeps" element={ <MyUpkeepList /> } />
             <Route path="/upkeep/details/:id/*" element={ <UpkeepDetails /> } />

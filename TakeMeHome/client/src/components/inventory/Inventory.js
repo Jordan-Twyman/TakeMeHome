@@ -1,7 +1,6 @@
 
 import { Card, CardBody } from "reactstrap";
 import "../../App.css";
-import { Link } from "react-router-dom";
 import moment from "moment";
 
 

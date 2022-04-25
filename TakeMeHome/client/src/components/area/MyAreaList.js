@@ -1,4 +1,4 @@
-import { Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import React, { useContext, useEffect, useState } from "react";
 import { AreaContext } from "../../providers/AreaProvider";
@@ -15,12 +15,8 @@ const MyAreaList = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const items = area.map(a => a.inventoryItems.map(i => i));
+  const items = area.map(a => a.inventoryItems.map(i => i));  
   const totalItems = items.map(i => i.length).reduce((a, b) => a + b, 0)
-
-
-
-  
 
   useEffect(() => {
     getMyAreas(currentUserId)
@@ -28,8 +24,8 @@ const MyAreaList = () => {
 
   return (
     <> <div className="container"> 
-      <button type="button" className="btn btn-light" onClick={handleShow}><img src="add.png" alt="add" height="30" width="30"  />
-</button>
+      <button type="button" className="btn btn-light" onClick={handleShow}><img src="add.png" alt="add" height="30" width="30"  /> 
+</button><i> New Items</i>
 
     <div className="row justify-content-center">
     
@@ -43,7 +39,6 @@ const MyAreaList = () => {
       
     </div>
   
-
   </div>
   
   

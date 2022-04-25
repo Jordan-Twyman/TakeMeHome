@@ -8,9 +8,6 @@ import "../../App.css";
 const Area = ({ area }) => {
 
     const [isOpen, setIsOpen] = useState(false)
-    debugger
-
-
   return (
     <Card className="m-4">      
     <CardBody>
