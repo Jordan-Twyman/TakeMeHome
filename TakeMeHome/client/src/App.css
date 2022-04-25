@@ -30,6 +30,10 @@ nav {
   margin: 5px
 }
 
+.stat-container {
+  display:flex;
+  justify-content: space-evenly;
+}
 
 
 .navbar-light {

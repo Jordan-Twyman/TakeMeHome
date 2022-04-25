@@ -59,11 +59,11 @@ const UpkeepDetails = () => {
     {upkeep.upkeep.title}</h2>
     <p>   <em className="row justify-content-center">
     {upkeep.upkeep.description}</em></p>
-     
-    {upkeep.cost !== 0 && upkeep.cost !== null ? <div className="m-4">
-    Lifetime Cost: {upkeep.cost}</div> :""}
+     <div className="stat-container">{upkeep.cost !== 0 && upkeep.cost !== null ? <div className="m-4">
+    <b>Lifetime Cost:</b> $ {upkeep.cost}</div> :""}
     {upkeep.count !== 0 && upkeep.count !== null ? <div className="m-4">
-    Times Completed: {upkeep.count}</div> :""}
+    <b>Times Completed:</b> {upkeep.count}</div> :""}</div>
+    
    </Card>
    <div> <Button className = "row justify-content-center m-4" variant="secondary" onClick={handleShow}>
         Ready to Complete?
