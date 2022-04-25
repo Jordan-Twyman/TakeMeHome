@@ -60,7 +60,7 @@ const UpkeepDetails = () => {
     <p>   <em className="row justify-content-center">
     {upkeep.upkeep.description}</em></p>
      <div className="stat-container">{upkeep.cost !== 0 && upkeep.cost !== null ? <div className="m-4">
-    <b>Lifetime Cost:</b> $ {upkeep.cost}</div> :""}
+    <b>Lifetime Cost:</b>  &#36;{upkeep.cost}</div> :""}
     {upkeep.count !== 0 && upkeep.count !== null ? <div className="m-4">
     <b>Times Completed:</b> {upkeep.count}</div> :""}</div>
     
