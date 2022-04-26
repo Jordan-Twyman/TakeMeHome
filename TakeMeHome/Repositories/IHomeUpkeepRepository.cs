@@ -7,6 +7,7 @@ namespace TakeMeHome.Repositories
     {
         void CompleteUpkeep(HomeUpkeep upkeep, int id);
         IEnumerable<Month> GetAllMyUpkeeps(int homeId);
+        IEnumerable<Month> GetAllMyUpkeepsThisMonth(int homeId);
         HomeUpkeep GetById(int id);
     }
 }

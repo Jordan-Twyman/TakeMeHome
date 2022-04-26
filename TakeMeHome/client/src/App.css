@@ -25,6 +25,12 @@ body, html, .App, #root, .auth-wrapper {
 nav {
   margin-bottom: 10px;
 }
+.nav-tabs {
+display: flex;
+margin-left: 38px;
+margin-top: 5px;
+}
+
 
 .btn {
   margin: 5px

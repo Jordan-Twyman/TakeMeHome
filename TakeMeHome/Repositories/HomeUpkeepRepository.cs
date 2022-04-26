@@ -27,7 +27,7 @@ namespace TakeMeHome.Repositories
                                         Left Join Home h On h.id = hu.HomeId
                                         Left Join Upkeep u on u.Id = hu.UpkeepId
                                         Left Join Inventory i On i.Id = u.InventoryId
-                                        Where hu.HomeId = @homeId
+                                        Where hu.HomeId = @homeId AND YEAR(hu.ScheduleDate) = YEAR(GETDATE())
                                         Order By hu.ScheduleDate ASC";
 
                     DbUtils.AddParameter(cmd, "@homeId", homeId);
@@ -98,8 +98,99 @@ namespace TakeMeHome.Repositories
         });
 
 
+                    return upkeepsGrouped;
+                }
 
-               
+
+            }
+        }
+        public IEnumerable<Month> GetAllMyUpkeepsThisMonth(int homeId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT hu.Id, hu.ScheduleDate, hu.HomeId, hu.UpkeepId, hu.Cost, hu.Count,
+                                               u.Title, u.Description, u.InventoryId, u.Id as UpkeepId, u.NumberOfMonths,
+                                               i.Name as InventoryName, h.FirstName, h.LastName, h.ConstructedDate 
+                                        FROM HomeUpkeep hu
+                                        Left Join Home h On h.id = hu.HomeId
+                                        Left Join Upkeep u on u.Id = hu.UpkeepId
+                                        Left Join Inventory i On i.Id = u.InventoryId
+                                        Where hu.HomeId = @homeId AND MONTH(hu.ScheduleDate) = MONTH(GETDATE()) AND YEAR(hu.ScheduleDate) = YEAR(GETDATE())
+                                        Order By hu.ScheduleDate ASC";
+
+                    DbUtils.AddParameter(cmd, "@homeId", homeId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var upKeeps = new List<HomeUpkeep>();
+
+                    while (reader.Read())
+                    {
+
+                        upKeeps.Add(new HomeUpkeep()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            ScheduleDate = DbUtils.GetDateTime(reader, "ScheduleDate"),
+                            Cost = DbUtils.GetNullableInt(reader, "Cost"),
+                            Count = DbUtils.GetNullableInt(reader, "Count"),
+                            UpkeepId = DbUtils.GetInt(reader, "UpkeepId"),
+                            Upkeep = new Upkeep()
+                            {
+                                InventoryId = DbUtils.GetInt(reader, "InventoryId"),
+                                Title = DbUtils.GetString(reader, "Title"),
+                                Description = DbUtils.GetString(reader, "Description"),
+                                NumberOfMonths = DbUtils.GetInt(reader, "NumberOfMonths"),
+                                Inventory = new Inventory()
+                                {
+                                    Id = DbUtils.GetInt(reader, "InventoryId"),
+                                    Name = DbUtils.GetString(reader, "InventoryName"),
+                                }
+                            },
+                            HomeId = homeId,
+                            Home = new Home()
+                            {
+                                Id = homeId,
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName"),
+                                ConstructedDate = DbUtils.GetDateTime(reader, "ConstructedDate")
+                            }
+                        });
+
+                        var upkeepId = DbUtils.GetInt(reader, "Id");
+
+                        var existingupkeep = upKeeps.FirstOrDefault(a => a.Id == upkeepId);
+
+                    }
+
+
+
+
+
+                    reader.Close();
+
+
+                    var upkeepsGrouped = upKeeps.GroupBy(u => new
+                    {
+                        m = u.ScheduleDate.ToString("MMMM"),
+                        v = u.Upkeep.Inventory.Name,
+                        u.ScheduleDate.Year,
+
+                    }).Select(gcs => new Month()
+                    {
+
+                        Year = gcs.Key.Year,
+                        Name = gcs.Key.m,
+                        ItemName = gcs.Key.v,
+                        Upkeeps = gcs.ToList()
+
+                    });
+
+
+
+
 
                     /* var GroupBy = upKeeps.GroupBy(u => new Month
        {

@@ -37,6 +37,7 @@ const { id, name } = useParams()
         if(inventoryList.includes(currentItemId))
         {
             window.alert("You already have this item!");
+            navigate('/')
         }
         else{
             debugger

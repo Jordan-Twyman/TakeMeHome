@@ -25,9 +25,16 @@ namespace TakeMeHome.Controllers
         }
 
         [HttpGet("/GetMyUpkeeps/{homeId}")]
-        public IActionResult GetMyAreas(int homeId)
+        public IActionResult GetMyUpkeeps(int homeId)
         {
             var home = _upkeepRepository.GetAllMyUpkeeps(homeId);
+            return Ok(home);
+        }
+
+        [HttpGet("/GetMyUpkeepsThisMonth/{homeId}")]
+        public IActionResult GetMyUpkeepsThisMonth(int homeId)
+        {
+            var home = _upkeepRepository.GetAllMyUpkeepsThisMonth(homeId);
             return Ok(home);
         }
 

@@ -13,10 +13,15 @@ import UpkeepDetails from "./upkeep/UpkeepDetail";
 import MyUpkeepList from "./upkeep/UpkeepList";
 import "../index.css";
 import InventoryList from "./inventory/InventoryList";
+import MyMonthlyUpkeepList from "./upkeep/MonthUpkeepList";
+import { Tab, Tabs } from "react-bootstrap";
+import moment from "moment";
+
 
 
 export default function ApplicationViews() {
     const { isLoggedIn } = useContext(HomeContext);
+    const currentYear = new Date().now
   
     if (!isLoggedIn) {
       return ( 
@@ -40,7 +45,9 @@ export default function ApplicationViews() {
         <UpkeepProvider>
         <Routes>            
             <Route path="/select" element={<InventoryList />} />
-            <Route path="/upkeeps" element={ <MyUpkeepList /> } />
+            <Route path="/upkeeps" element={      <Tabs defaultActiveKey="year" id="uncontrolled-tab-example" className="mb-3">
+            <Tab eventKey="year" title={moment(currentYear).format('YYYY')}>
+<MyUpkeepList /> </Tab> <Tab eventKey="month" title={moment(currentYear).format('MMMM')}><MyMonthlyUpkeepList /></Tab></Tabs>  } />
             <Route path="/upkeep/details/:id/*" element={ <UpkeepDetails /> } />
             <Route path="/" element={ <> <MyAreaList /></> } />
             <Route path="/inventory/create/:id/:name/*" element={ <InventoryForm /> } />
