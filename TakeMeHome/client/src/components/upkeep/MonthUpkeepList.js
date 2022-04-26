@@ -46,16 +46,18 @@ if (upkeepThisMonth.length > 0)
   );
   else {
       return (
-        <div className="container">
-        <div className="row justify-content-center">
-            
-          <div className="cards-column-upkeeps">
+        <span style={{
+            position: "fixed",
+            left: 0,
+            right: 0,
+            top: "50%",
+            marginTop: "-0.5rem",
+            textAlign: "center",
+          }}>
           <h2 className="row justify-content-center welcome">Great Job, {currentUser.lastName} Family!   </h2>
           <h3 className="row justify-content-center welcome"> &#9786;</h3>
           <h3 className="row justify-content-center welcome"> There have no more upkeeps in {moment(currentYear).format('MMMM')}</h3>
-          </div>
-        </div>
-      </div>  
+     </span> 
       )
   }
 };

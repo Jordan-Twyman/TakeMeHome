@@ -27,7 +27,7 @@ nav {
 }
 .nav-tabs {
 display: flex;
-margin-left: 38px;
+margin-left: 358px;
 margin-top: 5px;
 }
 
@@ -135,7 +135,11 @@ opacity: 0.80;
   margin:150px;
 }
 
-
+.register-form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
 
 .inventory {
   display: grid;

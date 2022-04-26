@@ -20,16 +20,16 @@ export default function Register() {
       if (password && password !== confirmPassword) {
         alert("Passwords don't match. Do better.");
       } else {
-        const homeProfile = { firstName, lastName, email, constructedDate };
+        const homeProfile = { firstName, lastName, email, constructedDate, purchaseDate };
         register(homeProfile, password)
-          .then(() => navigate("/select"));
+          .then(() => navigate("/"));
       }
    
  };
 
   return (
     <Form onSubmit={registerClick}>
-      <fieldset>
+      <fieldset className="register-form">
         <FormGroup>
           <Label htmlFor="firstName">First Name</Label>
           <Input id="firstName" type="text" onChange={e => setFirstName(e.target.value)} />
@@ -51,7 +51,7 @@ export default function Register() {
           <Input id="confirmPassword" type="password" onChange={e => setConfirmPassword(e.target.value)} />
         </FormGroup>
         <FormGroup>
-          <Label for="constructedDate">What year was your home constructed?</Label>
+          <Label for="constructedDate">Construction Date</Label>
           <Input id="constructedDate" type="date" onChange={e => setConstructedDate(e.target.value)} />
         </FormGroup>
         <FormGroup>
