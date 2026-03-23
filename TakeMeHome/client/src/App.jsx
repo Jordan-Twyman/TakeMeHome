@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
-import { HomeProvider } from "./providers/HomeProvider.js";
+import { HomeProvider } from "./providers/HomeProvider.jsx";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 

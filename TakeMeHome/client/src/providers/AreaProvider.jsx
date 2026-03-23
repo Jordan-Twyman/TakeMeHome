@@ -1,17 +1,17 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, createContext } from "react";
 
 
 export const AreaContext = createContext();
 
 export const AreaProvider =(props) =>{
 
-  const apiUrl = "https://localhost:44372";
+  const apiUrl = "/api";
   const [area, setArea] = useState([]);
   const [areaForSelect, setAreaForSelect] = useState([]);
   const [ searchTerms, setSearchTerms ] = useState("");
 
 const getAllAreas = () => {
-    return fetch(`${apiUrl}/api/Area`)
+    return fetch(`${apiUrl}/Area`)
       .then((res) => res.json())
       .then(setAreaForSelect);
   };

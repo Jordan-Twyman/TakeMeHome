@@ -1,16 +1,15 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { InventoryContext } from "../../providers/InventoryProvider";
-import Inventory from "./Inventory";
-import { Card, Col, Container, Row, Stack } from "react-bootstrap";
 import { UpkeepContext } from "../../providers/UpkeepProvider";
+import Inventory from "./Inventory";
+import { Card } from "react-bootstrap";
 import moment from "moment";
 
 
 const InventoryDetails = () => {
   const { updateInventory, getInventoryById} = useContext(InventoryContext);
-  const { upkeep, getMyUpkeeps } = useContext(UpkeepContext);
+  const { getMyUpkeeps } = useContext(UpkeepContext);
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
   const { id, name } = useParams();
   const [idToEdit, setIdToEdit] = useState(0)
@@ -53,7 +52,7 @@ getInventoryById(id)
 
   useEffect(() => {
     getInventoryById(id).then(setInventory).then(getMyUpkeeps(currentUser.id));
-  }, []);
+  }, [currentUser.id, getInventoryById, getMyUpkeeps, id]);
 
 
 

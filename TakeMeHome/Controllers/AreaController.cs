@@ -31,7 +31,7 @@ namespace TakeMeHome.Controllers
             return "value";
         }
 
-        [HttpGet("/GetMyAreas/{homeId}")]
+        [HttpGet("GetMyAreas/{homeId}")]
         public IActionResult GetMyAreas(int homeId)
         {
             var home = _areaRepository.GetAllAreasWithMyInventory(homeId);

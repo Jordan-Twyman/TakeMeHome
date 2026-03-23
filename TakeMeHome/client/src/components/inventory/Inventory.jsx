@@ -7,8 +7,6 @@ import moment from "moment";
 
 const Inventory = ({ inventory }) => {
 
-    const currentUser = JSON.parse(sessionStorage.getItem("user"));
-    const currentUserId = currentUser.id
    
 
   return (

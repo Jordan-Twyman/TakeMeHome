@@ -46,8 +46,7 @@ export default function Header() {
           {isLoggedIn &&
             <>
               <NavItem>
-                <a aria-current="page" className="nav-link"
-                  style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
+                <button type="button" className="btn btn-link nav-link" onClick={logout}>Logout</button>
               </NavItem>
             </>
           }
@@ -68,18 +67,14 @@ export default function Header() {
 
   <footer className="bg-dark">
     <div className="footer-github">
-      <button type="button" className="btn btn-dark btn-outline-light">
-        <a target="_blank" href="https://github.com/jordan-twyman/Takemehome">
-          <img src={github} alt='' height="25" width="25" className="bi bi-github github-logo"></img>
-        </a>
-      </button>
+      <a target="_blank" rel="noreferrer" href="https://github.com/jordan-twyman/Takemehome" className="btn btn-dark btn-outline-light">
+        <img src={github} alt='' height="25" width="25" className="bi bi-github github-logo"></img>
+      </a>
       </div>
       <div className="footer-github">
-      <button type="button" className="btn btn-dark btn-outline-light">
-        <a target="_blank" href="https://www.linkedin.com/in/jordan-twyman/">
-          <img src={linkedin} alt='' height="25" width="25" className="bi bi-github github-logo"></img>
-        </a>
-      </button>
+      <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/jordan-twyman/" className="btn btn-dark btn-outline-light">
+        <img src={linkedin} alt='' height="25" width="25" className="bi bi-github github-logo"></img>
+      </a>
       </div>
     <div className="footer-copyright"><small>Take Me Home &copy;2022</small></div>
   </footer>

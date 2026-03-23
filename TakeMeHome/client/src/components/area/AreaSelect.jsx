@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AreaContext } from "../../providers/AreaProvider";
-import Area from "./Area";
 
 export const AreaSelect = () => {
   const { areaForSelect, getAllAreas, setSearchTerms, searchTerms } = useContext(AreaContext);
@@ -9,7 +8,7 @@ export const AreaSelect = () => {
   
   useEffect(() => {
     getAllAreas()
-  }, []);
+  }, [getAllAreas]);
 
   useEffect(() => {
     if (searchTerms !== "" ) {

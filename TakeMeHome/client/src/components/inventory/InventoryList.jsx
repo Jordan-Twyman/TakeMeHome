@@ -1,14 +1,11 @@
 import { Button, Modal } from "react-bootstrap";
 import React, { useContext, useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { InventoryContext } from "../../providers/InventoryProvider";
-import Inventory from "./Inventory";
 import { InventoryForm } from "./InventoryForm";
 
 
 const InventoryList = () => {
-  const { inventory, getAllInventory, addInventory } = useContext(InventoryContext);
+  const { inventory, getAllInventory } = useContext(InventoryContext);
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
   const currentUserName = currentUser.lastName;
   const [show, setShow] = useState(false);
@@ -20,15 +17,7 @@ const InventoryList = () => {
 
   useEffect(() => {
     getAllInventory()  
-  }, []);
-
-  const handleClickSaveItem = (e) => {
-    const item = inventory.find(i => i.id)
-    addInventory({
-      homeId:currentUser.id,
-      inventoryId:item.id,
-    })
-  }
+  }, [getAllInventory]);
 
   return (
     <div className="inventory-list-container">

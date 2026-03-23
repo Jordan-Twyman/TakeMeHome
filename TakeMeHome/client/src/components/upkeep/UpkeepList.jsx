@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import { Tab, Tabs } from "react-bootstrap";
 import { UpkeepContext } from "../../providers/UpkeepProvider";
 import Upkeep from "./Upkeep";
 
@@ -10,7 +9,7 @@ const MyUpkeepList = () => {
 
   useEffect(() => {
     getMyUpkeeps(currentUserId)
-  }, []);
+  }, [currentUserId, getMyUpkeeps]);
 
 
   

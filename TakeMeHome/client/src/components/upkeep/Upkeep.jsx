@@ -1,15 +1,12 @@
-import { Card, CardBody } from "reactstrap";
 import "../../App.css";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
 
 
-const MonthUpkeep = ({ monthUpkeep }) => {
+const Upkeep = ({ upkeep }) => {
 
-    const currentUser = JSON.parse(sessionStorage.getItem("user"));
-    const currentUserId = currentUser.id
-    const singleItem = monthUpkeep.upkeepItems?.map((item, index) => {
+    const singleItem = upkeep.upkeepItems?.map((item, index) => {
 return (
   <div key={index}>
     <h4>{item.name}</h4>
@@ -28,7 +25,7 @@ return (
   return (
     <div className="m-4">      
     <div>
-        <div><h3>{monthUpkeep.name} <small>{monthUpkeep.year}</small></h3> </div>
+        <div><h3>{upkeep.name} <small>{upkeep.year}</small></h3> </div>
         <div>{singleItem}</div>
     </div>
   </div>
@@ -38,4 +35,4 @@ return (
   );
 };
 
-export default MonthUpkeep;
+export default Upkeep;

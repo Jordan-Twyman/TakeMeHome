@@ -20,7 +20,7 @@ const MyAreaList = () => {
 
   useEffect(() => {
     getMyAreas(currentUserId)
-  }, []);
+  }, [currentUserId, getMyAreas]);
 
   return (
     <> <div className="container"> 

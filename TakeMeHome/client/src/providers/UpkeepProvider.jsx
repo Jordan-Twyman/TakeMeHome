@@ -1,5 +1,4 @@
-import { months } from "moment";
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, createContext } from "react";
 
 
 export const UpkeepContext = createContext();
@@ -7,7 +6,7 @@ export const UpkeepContext = createContext();
 export const UpkeepProvider =(props) =>{
     const [upkeep, setUpkeep] = useState([]);
     const [upkeepThisMonth, setUpkeepThisMonth] = useState([]);
-    const apiUrl = "https://localhost:44372";
+    const apiUrl = "/api";
 
 
 

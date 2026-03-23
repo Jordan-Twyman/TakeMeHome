@@ -1,13 +1,13 @@
 
 
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, createContext } from "react";
 
 
 export const InventoryContext = createContext();
 
 export const InventoryProvider =(props) =>{
 
-  const apiUrl = "https://localhost:44372";
+  const apiUrl = "/api";
   const [inventory, setInventory] = useState([]);
 
 

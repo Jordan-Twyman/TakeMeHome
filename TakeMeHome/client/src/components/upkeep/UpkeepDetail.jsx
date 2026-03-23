@@ -1,8 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { UpkeepContext } from "../../providers/UpkeepProvider";
-import Upkeep from "./Upkeep";
 import { Card, Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import dishwasher from '../../img/dish-washer.png'
@@ -23,7 +21,7 @@ const UpkeepDetails = () => {
 
   useEffect(() => {
     getUpkeep(id).then(setUpkeep);
-  }, []);
+  }, [getUpkeep, id]);
 
   const handleControlledInputChange = (e) => {
     const newUpkeep = { ...upkeep }

@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { Tab, Table, Tabs } from "react-bootstrap";
 import { UpkeepContext } from "../../providers/UpkeepProvider";
 import MonthUpkeep from "./MonthUpkeep";
-import Upkeep from "./Upkeep";
 import moment from "moment";
 
 
@@ -15,7 +13,7 @@ const MyMonthlyUpkeepList = () => {
 
   useEffect(() => {
     getMyUpkeepsThisMonth(currentUserId)
-  }, []);
+  }, [currentUserId, getMyUpkeepsThisMonth]);
 
 
 

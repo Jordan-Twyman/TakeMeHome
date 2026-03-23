@@ -1,11 +1,11 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, createContext } from "react";
 
 
 export const HomeContext = createContext();
 
 export const HomeProvider =(props) =>{
 
-  const apiUrl = "https://localhost:44372";
+  const apiUrl = "/api";
   const [home, setHome] = useState([]);
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
   const [isLoggedIn, setIsLoggedIn] = useState(currentUser != null);
@@ -19,17 +19,21 @@ export const HomeProvider =(props) =>{
 
 
   const login = (userObject) => {
-    return fetch(`${apiUrl}/api/home/getbyemail?email=${userObject.email}`)
-    .then((r) => r.json())
+    return fetch(`${apiUrl}/home/GetByEmail?email=${encodeURIComponent(userObject.email)}`)
+      .then((r) => {
+        if (!r.ok) {
+          if (r.status === 404) return null;
+          throw new Error(`Login API request failed: ${r.status} ${r.statusText}`);
+        }
+        return r.json();
+      })
       .then((userProfile) => {
-        if(userProfile.id){
-          sessionStorage.setItem("user", JSON.stringify(userProfile));
-          setIsLoggedIn(true);
-          return userProfile
+        if (!userProfile || !userProfile.id) {
+          return undefined;
         }
-        else{
-          return undefined
-        }
+        sessionStorage.setItem("user", JSON.stringify(userProfile));
+        setIsLoggedIn(true);
+        return userProfile;
       });
   };
 
@@ -40,7 +44,7 @@ export const HomeProvider =(props) =>{
 
   const register = (userObject, password) => {
    
-      return  fetch(`${apiUrl}/api/home`, {
+      return  fetch(`${apiUrl}/home`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
